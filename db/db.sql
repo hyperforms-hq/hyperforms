@@ -118,8 +118,7 @@ CREATE TABLE public.documents (
     deleted_on timestamp without time zone,
     created_by uuid,
     archived_by uuid,
-    deleted_by uuid,
-    active_version_id uuid
+    deleted_by uuid
 );
 
 
@@ -305,14 +304,6 @@ ALTER TABLE ONLY public.documents
 
 ALTER TABLE ONLY public.documents
     ADD CONSTRAINT documents_document_types_id_fk FOREIGN KEY (document_type_id) REFERENCES public.document_types(id);
-
-
---
--- Name: documents documents_document_versions_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT documents_document_versions_id_fk FOREIGN KEY (active_version_id) REFERENCES public.document_versions(id);
 
 
 --
