@@ -109,6 +109,41 @@ CREATE TABLE public.namespaces (
 
 
 --
+-- Name: permission; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.permission (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    user_group_id uuid,
+    user_id uuid,
+    collection_id uuid,
+    permission integer NOT NULL,
+    document_id uuid
+);
+
+
+--
+-- Name: user_group_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_group_users (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    user_group_id uuid NOT NULL,
+    user_id uuid
+);
+
+
+--
+-- Name: user_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_groups (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name character varying(80)
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -164,6 +199,30 @@ ALTER TABLE ONLY public.document_versions
 
 ALTER TABLE ONLY public.documents
     ADD CONSTRAINT documents_pk PRIMARY KEY (id);
+
+
+--
+-- Name: permission permission_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.permission
+    ADD CONSTRAINT permission_pk PRIMARY KEY (id);
+
+
+--
+-- Name: user_group_users user_group_users_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_group_users
+    ADD CONSTRAINT user_group_users_pk PRIMARY KEY (id);
+
+
+--
+-- Name: user_groups user_groups_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_groups
+    ADD CONSTRAINT user_groups_pk PRIMARY KEY (id);
 
 
 --
@@ -250,6 +309,54 @@ ALTER TABLE ONLY public.documents
 
 ALTER TABLE ONLY public.documents
     ADD CONSTRAINT documents_users_id_fk_3 FOREIGN KEY (deleted_by) REFERENCES public.users(id);
+
+
+--
+-- Name: permission permission_collections_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.permission
+    ADD CONSTRAINT permission_collections_id_fk FOREIGN KEY (collection_id) REFERENCES public.collections(id);
+
+
+--
+-- Name: permission permission_documents_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.permission
+    ADD CONSTRAINT permission_documents_id_fk FOREIGN KEY (document_id) REFERENCES public.documents(id);
+
+
+--
+-- Name: permission permission_user_groups_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.permission
+    ADD CONSTRAINT permission_user_groups_id_fk FOREIGN KEY (user_group_id) REFERENCES public.user_groups(id);
+
+
+--
+-- Name: permission permission_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.permission
+    ADD CONSTRAINT permission_users_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: user_group_users user_group_users_user_groups_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_group_users
+    ADD CONSTRAINT user_group_users_user_groups_id_fk FOREIGN KEY (user_group_id) REFERENCES public.user_groups(id);
+
+
+--
+-- Name: user_group_users user_group_users_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_group_users
+    ADD CONSTRAINT user_group_users_users_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
