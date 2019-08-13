@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.16",
-    "@types/node": "12.6.9",
-    "@types/react": "16.8.24",
-    "@types/react-dom": "16.8.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "typescript": "3.5.3"
+    "typescript": "^3.5.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node build/server/index.js",
+    "start:dev": "react-scripts start",
+    "start:dev:server": "ts-node --project ./src/server/tsconfig.json ./src/server/index.ts",
     "build": "react-scripts build",
+    "build:server": "tsc --project ./src/server/tsconfig.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -32,5 +33,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/jest": "24.0.16",
+    "@types/node": "12.6.9",
+    "@types/react": "16.8.24",
+    "@types/react-dom": "16.8.5",
+    "husky": "^3.0.2",
+    "prettier": "1.18.2",
+    "pretty-quick": "^1.11.1",
+    "ts-node": "^8.3.0"
+  },
+  "proxy": "http://localhost:5000/",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
