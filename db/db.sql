@@ -35,32 +35,21 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: data_spaces; Type: TABLE; Schema: public; Owner: -
+-- Name: collections; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.data_spaces (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    name character varying(80) NOT NULL
-);
-
-
---
--- Name: document_collection; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.document_collection (
+CREATE TABLE public.collections (
     id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
     base_id uuid NOT NULL,
-    document_type_id uuid,
     name character varying(80) NOT NULL
 );
 
 
 --
--- Name: document_comment_versions; Type: TABLE; Schema: public; Owner: -
+-- Name: comment_versions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.document_comment_versions (
+CREATE TABLE public.comment_versions (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     created_on timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     text text
@@ -68,25 +57,14 @@ CREATE TABLE public.document_comment_versions (
 
 
 --
--- Name: document_comments; Type: TABLE; Schema: public; Owner: -
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.document_comments (
+CREATE TABLE public.comments (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     created_by uuid,
     active_version_id integer
-);
-
-
---
--- Name: document_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.document_types (
-    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    schema jsonb NOT NULL,
-    name character varying(80) NOT NULL
 );
 
 
@@ -111,8 +89,6 @@ CREATE TABLE public.document_versions (
 CREATE TABLE public.documents (
     id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
     document_collection_id uuid NOT NULL,
-    document_type_id uuid,
-    data_space_id uuid,
     created_on timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     archived_on timestamp without time zone,
     deleted_on timestamp without time zone,
@@ -151,43 +127,27 @@ ALTER TABLE ONLY public.namespaces
 
 
 --
--- Name: data_spaces data_spaces_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: collections document_collection_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.data_spaces
-    ADD CONSTRAINT data_spaces_pk PRIMARY KEY (id);
-
-
---
--- Name: document_collection document_collection_pk; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.document_collection
+ALTER TABLE ONLY public.collections
     ADD CONSTRAINT document_collection_pk PRIMARY KEY (id);
 
 
 --
--- Name: document_comment_versions document_comment_versions_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comment_versions document_comment_versions_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.document_comment_versions
+ALTER TABLE ONLY public.comment_versions
     ADD CONSTRAINT document_comment_versions_pk PRIMARY KEY (id);
 
 
 --
--- Name: document_comments document_comments_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comments document_comments_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.document_comments
+ALTER TABLE ONLY public.comments
     ADD CONSTRAINT document_comments_pk PRIMARY KEY (id);
-
-
---
--- Name: document_types document_types_pk; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.document_types
-    ADD CONSTRAINT document_types_pk PRIMARY KEY (id);
 
 
 --
@@ -215,24 +175,10 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: data_spaces_name_uindex; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX data_spaces_name_uindex ON public.data_spaces USING btree (name);
-
-
---
 -- Name: document_collection_name_uindex; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX document_collection_name_uindex ON public.document_collection USING btree (name);
-
-
---
--- Name: document_types_name_uindex; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX document_types_name_uindex ON public.document_types USING btree (name);
+CREATE UNIQUE INDEX document_collection_name_uindex ON public.collections USING btree (name);
 
 
 --
@@ -243,26 +189,18 @@ CREATE UNIQUE INDEX users_email_uindex ON public.users USING btree (email);
 
 
 --
--- Name: document_collection document_collection_bases_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: collections document_collection_bases_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.document_collection
+ALTER TABLE ONLY public.collections
     ADD CONSTRAINT document_collection_bases_id_fk FOREIGN KEY (base_id) REFERENCES public.namespaces(id);
 
 
 --
--- Name: document_collection document_collection_document_types_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: comments document_comments_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.document_collection
-    ADD CONSTRAINT document_collection_document_types_id_fk FOREIGN KEY (document_type_id) REFERENCES public.document_types(id);
-
-
---
--- Name: document_comments document_comments_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.document_comments
+ALTER TABLE ONLY public.comments
     ADD CONSTRAINT document_comments_users_id_fk FOREIGN KEY (created_by) REFERENCES public.users(id);
 
 
@@ -283,27 +221,11 @@ ALTER TABLE ONLY public.document_versions
 
 
 --
--- Name: documents documents_data_spaces_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT documents_data_spaces_id_fk FOREIGN KEY (data_space_id) REFERENCES public.data_spaces(id);
-
-
---
 -- Name: documents documents_document_collection_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT documents_document_collection_id_fk FOREIGN KEY (document_collection_id) REFERENCES public.document_collection(id);
-
-
---
--- Name: documents documents_document_types_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT documents_document_types_id_fk FOREIGN KEY (document_type_id) REFERENCES public.document_types(id);
+    ADD CONSTRAINT documents_document_collection_id_fk FOREIGN KEY (document_collection_id) REFERENCES public.collections(id);
 
 
 --
