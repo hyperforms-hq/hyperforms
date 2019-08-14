@@ -35,6 +35,17 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: bases; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bases (
+    id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
+    name character varying(80) NOT NULL,
+    workspace_id uuid NOT NULL
+);
+
+
+--
 -- Name: collections; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -88,23 +99,13 @@ CREATE TABLE public.document_versions (
 
 CREATE TABLE public.documents (
     id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
-    document_collection_id uuid NOT NULL,
+    collection_id uuid NOT NULL,
     created_on timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     archived_on timestamp without time zone,
     deleted_on timestamp without time zone,
     created_by uuid,
     archived_by uuid,
     deleted_by uuid
-);
-
-
---
--- Name: namespaces; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.namespaces (
-    id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
-    name character varying(80) NOT NULL
 );
 
 
@@ -139,7 +140,8 @@ CREATE TABLE public.user_group_users (
 
 CREATE TABLE public.user_groups (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    name character varying(80)
+    name character varying(80),
+    workspace_id uuid
 );
 
 
@@ -154,10 +156,20 @@ CREATE TABLE public.users (
 
 
 --
--- Name: namespaces bases_pk; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: workspaces; Type: TABLE; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.namespaces
+CREATE TABLE public.workspaces (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+--
+-- Name: bases bases_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bases
     ADD CONSTRAINT bases_pk PRIMARY KEY (id);
 
 
@@ -234,6 +246,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: workspaces workspaces_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.workspaces
+    ADD CONSTRAINT workspaces_pk PRIMARY KEY (id);
+
+
+--
 -- Name: document_collection_name_uindex; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -248,11 +268,19 @@ CREATE UNIQUE INDEX users_email_uindex ON public.users USING btree (email);
 
 
 --
+-- Name: bases bases_workspaces_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bases
+    ADD CONSTRAINT bases_workspaces_id_fk FOREIGN KEY (workspace_id) REFERENCES public.workspaces(id);
+
+
+--
 -- Name: collections document_collection_bases_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.collections
-    ADD CONSTRAINT document_collection_bases_id_fk FOREIGN KEY (base_id) REFERENCES public.namespaces(id);
+    ADD CONSTRAINT document_collection_bases_id_fk FOREIGN KEY (base_id) REFERENCES public.bases(id);
 
 
 --
@@ -280,11 +308,11 @@ ALTER TABLE ONLY public.document_versions
 
 
 --
--- Name: documents documents_document_collection_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: documents documents_collection_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.documents
-    ADD CONSTRAINT documents_document_collection_id_fk FOREIGN KEY (document_collection_id) REFERENCES public.collections(id);
+    ADD CONSTRAINT documents_collection_id_fk FOREIGN KEY (collection_id) REFERENCES public.collections(id);
 
 
 --
@@ -357,6 +385,14 @@ ALTER TABLE ONLY public.user_group_users
 
 ALTER TABLE ONLY public.user_group_users
     ADD CONSTRAINT user_group_users_users_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: user_groups user_groups_workspaces_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_groups
+    ADD CONSTRAINT user_groups_workspaces_id_fk FOREIGN KEY (workspace_id) REFERENCES public.workspaces(id);
 
 
 --
