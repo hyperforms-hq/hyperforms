@@ -7,6 +7,7 @@ export const NavBar: React.FunctionComponent = () => {
         <div className="navbar-brand">
           <a className="navbar-item" href="https://bulma.io">
             <img
+              alt="logo"
               src="https://bulma.io/images/bulma-logo.png"
               width="112"
               height="28"
@@ -20,26 +21,40 @@ export const NavBar: React.FunctionComponent = () => {
             data-target="navbarBasicExample"
           >
             <span aria-hidden="true" />
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
           </a>
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item">Home</a>
+            <a className="navbar-item" href={"#"}>
+              Home
+            </a>
 
-            <a className="navbar-item">Documentation</a>
+            <a className="navbar-item" href={"#"}>
+              Documentation
+            </a>
 
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">More</a>
+              <a className="navbar-link" href={"#"}>
+                More
+              </a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item">About</a>
-                <a className="navbar-item">Jobs</a>
-                <a className="navbar-item">Contact</a>
+                <a className="navbar-item" href={"/"}>
+                  About
+                </a>
+                <a className="navbar-item" href={"/"}>
+                  Jobs
+                </a>
+                <a className="navbar-item" href={"/"}>
+                  Contact
+                </a>
                 <hr className="navbar-divider" />
-                <a className="navbar-item">Report an issue</a>
+                <a className="navbar-item" href={"/"}>
+                  Report an issue
+                </a>
               </div>
             </div>
           </div>
