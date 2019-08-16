@@ -151,7 +151,8 @@ CREATE TABLE public.user_groups (
 
 CREATE TABLE public.users (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    email character varying(80) NOT NULL
+    email character varying(80) NOT NULL,
+    password character varying(120)
 );
 
 
