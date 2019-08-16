@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
+import { Logo } from "./logo";
 
 export const NavBar: React.FunctionComponent = () => {
   return (
@@ -6,12 +8,7 @@ export const NavBar: React.FunctionComponent = () => {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="https://bulma.io">
-            <img
-              alt="logo"
-              src="https://bulma.io/images/bulma-logo.png"
-              width="112"
-              height="28"
-            />
+            <Logo />
           </a>
           <a
             role="button"
@@ -63,9 +60,9 @@ export const NavBar: React.FunctionComponent = () => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <a className="button is-primary" href={"/"}>
+                <Link to={"/signup"} className="button is-primary">
                   <strong>Sign up</strong>
-                </a>
+                </Link>
                 <a className="button is-light" href={"/"}>
                   Log in
                 </a>

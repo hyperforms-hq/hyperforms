@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import "./styles/dom.scss";
 import "./styles/bulma.scss";
 import "./styles/elements.scss";
+import "@fortawesome/fontawesome-free/css/all.css";
 
-import App from "./common/components/App";
+import App from "./common/components/app";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(<App />, document.getElementById("root"));

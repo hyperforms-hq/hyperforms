@@ -1,0 +1,11 @@
+@import "../../../../styles/variables";
+
+.logoWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.rememberMeText {
+  margin-left: $size-8;
+}

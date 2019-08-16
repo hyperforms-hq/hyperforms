@@ -1,0 +1,42 @@
+@import "../../../styles/variables";
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.bar {
+  box-sizing: border-box;
+  background-color: $primary;
+  height: 5px;
+  width: 22px;
+  margin-top: 2px;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.bar1 {
+  @extend .bar;
+}
+
+.bar2 {
+  @extend .bar;
+  width: 18px;
+}
+
+.bar3 {
+  @extend .bar;
+}
+
+.textWrapper {
+  font-family: "Ubuntu", sans-serif;
+  font-size: $size-5;
+  margin-left: $size-8;
+}

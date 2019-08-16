@@ -4,7 +4,8 @@ $size-8: 0.5rem;
 $size-9: 0.25rem;
 
 $footer-background-color: $white-ter;
-$primary: $cyan;
 $desktop: 900px;
 $column-gap: 0.75rem !default;
 $border-default: 1px solid $grey-lighter;
+
+@import "../../node_modules/bulma/sass/utilities/derived-variables";

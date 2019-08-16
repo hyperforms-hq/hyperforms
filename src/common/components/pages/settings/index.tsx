@@ -1,9 +1,8 @@
-import React from "react";
+import * as React from "react";
+import { NavBar } from "../../navbar";
+import { SettingsMenu } from "../../settings-menu";
 
-import { NavBar } from "./navbar";
-import { SettingsMenu } from "./settings-menu";
-
-const App: React.FC = () => {
+export const Settings: React.FunctionComponent = () => {
   return (
     <div>
       <NavBar />
@@ -18,5 +17,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
