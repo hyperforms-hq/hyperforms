@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./index.module.scss";
+import styles from "./logo.module.scss";
 
 export const Logo: React.FunctionComponent = () => {
   return (
