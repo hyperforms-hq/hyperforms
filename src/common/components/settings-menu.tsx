@@ -7,10 +7,10 @@ export const SettingsMenu: React.FunctionComponent = () => {
         <p className="menu-label">General</p>
         <ul className="menu-list">
           <li>
-            <a>Bases</a>
+            <a href={"/"}>Bases</a>
           </li>
           <li>
-            <a>Home</a>
+            <a href={"/"}>Home</a>
           </li>
         </ul>
       </aside>
