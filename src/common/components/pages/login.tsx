@@ -1,6 +1,7 @@
 import * as React from "react";
 import styles from "./login.module.scss";
 import { CenteredBox } from "../layouts/centered-box";
+import { Link } from "react-router-dom";
 
 export const Login: React.FunctionComponent = () => {
   return (
@@ -44,6 +45,9 @@ export const Login: React.FunctionComponent = () => {
         </label>
       </div>
       <div className="buttons is-right">
+        <Link to={"/signup"} className={"button"}>
+          Create account
+        </Link>
         <button className="button is-primary">Login</button>
       </div>
     </CenteredBox>

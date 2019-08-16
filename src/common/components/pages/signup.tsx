@@ -1,5 +1,6 @@
 import * as React from "react";
 import { CenteredBox } from "../layouts/centered-box";
+import { Link } from "react-router-dom";
 
 export const Signup: React.FunctionComponent = () => {
   return (
@@ -53,6 +54,9 @@ export const Signup: React.FunctionComponent = () => {
         </div>
       </div>
       <div className="buttons is-right">
+        <Link to={"/login"} className={"button"}>
+          Login
+        </Link>
         <button className="button is-primary">Create account</button>
       </div>
     </CenteredBox>
