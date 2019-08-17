@@ -2,11 +2,9 @@ overwrite: true
 schema: "./src/server/graphql/schema.graphql"
 documents: "**/*.graphql"
 generates:
-  ./src/server/graphql/graphql-types.ts:
+  ./src/server/graphql/graphql-types.tsx:
     plugins:
-      - "typescript-common"
-      - "typescript-server"
       - "typescript-resolvers"
-  ./src/server/graphql/graphql-types.json:
-    plugins:
-      - "introspection"
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
