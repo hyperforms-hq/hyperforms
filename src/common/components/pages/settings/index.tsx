@@ -1,8 +1,8 @@
 import * as React from "react";
-import { NavBar } from "../navbar";
-import { SettingsMenu } from "../settings-menu";
+import { NavBar } from "../../navbar";
+import { SettingsMenu } from "../../settings-menu";
 
-export const Settings: React.FunctionComponent = () => {
+export const Index: React.FunctionComponent = () => {
   return (
     <div>
       <NavBar />

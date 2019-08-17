@@ -1,6 +1,6 @@
 import * as React from "react";
-import styles from "./centered-box.module.scss";
-import { Logo } from "../logo";
+import styles from "./index.module.scss";
+import { Logo } from "../../logo";
 
 export const CenteredBox: React.FunctionComponent = props => {
   return (

@@ -1,9 +1,8 @@
 import * as React from "react";
-import styles from "./login.module.scss";
-import { CenteredBox } from "../layouts/centered-box";
+import { CenteredBox } from "../../layouts/centered-box";
 import { Link } from "react-router-dom";
 
-export const Login: React.FunctionComponent = () => {
+export const Signup: React.FunctionComponent = () => {
   return (
     <CenteredBox>
       <div className="field">
@@ -39,16 +38,26 @@ export const Login: React.FunctionComponent = () => {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="" className="checkbox">
-          <input type="checkbox" />
-          <span className={styles.rememberMeText}>Remember me</span>
+        <label htmlFor="" className="label">
+          Confirm password
         </label>
+        <div className="control has-icons-left">
+          <input
+            type="password"
+            placeholder="*******"
+            className="input"
+            required
+          />
+          <span className="icon is-small is-left">
+            <i className="fa fa-lock" />
+          </span>
+        </div>
       </div>
       <div className="buttons is-right">
-        <Link to={"/signup"} className={"button"}>
-          Create account
+        <Link to={"/login"} className={"button"}>
+          Login
         </Link>
-        <button className="button is-primary">Login</button>
+        <button className="button is-primary">Create account</button>
       </div>
     </CenteredBox>
   );

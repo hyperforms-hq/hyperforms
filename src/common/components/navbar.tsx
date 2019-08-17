@@ -63,7 +63,7 @@ export const NavBar: React.FunctionComponent = () => {
                 <Link to={"/signup"} className="button is-primary">
                   <strong>Sign up</strong>
                 </Link>
-                <Link to={"/login"} className="button is-primary">
+                <Link to={"/login"} className="button">
                   Log in
                 </Link>
               </div>
