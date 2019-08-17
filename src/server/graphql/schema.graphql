@@ -1,0 +1,12 @@
+schema {
+  query: Query
+}
+
+type Query {
+  documents: [Document!]!
+}
+
+type Document {
+  description: String
+  createdOn: String!
+}
