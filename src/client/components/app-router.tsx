@@ -5,10 +5,18 @@ import { ApolloProvider } from "react-apollo";
 import { Login } from "./pages/login";
 import { Settings } from "./pages/settings";
 import { Signup } from "./pages/signup";
-import ApolloClient from "apollo-boost";
+import { onError } from "apollo-link-error";
+import { apolloClient } from "../graphql/apollo-client";
 
-const apolloClient = new ApolloClient({
-  uri: "http://localhost:3000/graphql"
+onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path, extensions }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 const AppRouter: React.FC = () => {

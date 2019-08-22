@@ -5,7 +5,7 @@ import "./styles/bulma.scss";
 import "./styles/elements.scss";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-import AppRouter from "./common/components/app-router";
+import AppRouter from "./client/components/app-router";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(<AppRouter />, document.getElementById("root"));

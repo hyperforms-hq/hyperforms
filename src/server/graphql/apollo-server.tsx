@@ -5,6 +5,7 @@ import { Request } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { config } from "dotenv";
 import { IResolvers } from "./graphql-types";
+import { AuthenticationError } from "apollo-server";
 
 config();
 
@@ -25,12 +26,7 @@ type Resolvers = IResolvers<HyperformsContext> & {
 const resolvers: Resolvers = {
   Query: {
     documents: async () => {
-      return [
-        {
-          description: "fudeu",
-          createdOn: "hahaha"
-        }
-      ];
+      throw new AuthenticationError("UNAUTHORIZED");
     }
   }
 };
