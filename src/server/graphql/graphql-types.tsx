@@ -4,6 +4,10 @@ import * as React from "react";
 import * as ApolloReactCommon from "@apollo/react-common";
 import * as ApolloReactComponents from "@apollo/react-components";
 import * as ApolloReactHoc from "@apollo/react-hoc";
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X]
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 export type Maybe<T> = T | null;
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -150,7 +154,7 @@ export type MutationResolvers<
     Maybe<ResolversTypes["User"]>,
     ParentType,
     ContextType,
-    MutationCreateUserArgs
+    RequireFields<MutationCreateUserArgs, "user">
   >;
 };
 
@@ -169,7 +173,7 @@ export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
 > = {
-  email?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
@@ -205,7 +209,7 @@ export type Mutation = {
 };
 
 export type MutationCreateUserArgs = {
-  user?: Maybe<UserInput>;
+  user: UserInput;
 };
 
 export type Query = {
@@ -215,12 +219,12 @@ export type Query = {
 
 export type User = {
   __typename?: "User";
-  email?: Maybe<Scalars["String"]>;
+  email: Scalars["String"];
 };
 
 export type UserInput = {
-  email?: Maybe<Scalars["String"]>;
-  password?: Maybe<Scalars["String"]>;
+  email: Scalars["String"];
+  password: Scalars["String"];
 };
 export type DocumentXQueryVariables = {};
 

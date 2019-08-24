@@ -8,7 +8,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(user: UserInput): User
+  createUser(user: UserInput!): User
 }
 
 type Document {
@@ -17,10 +17,10 @@ type Document {
 }
 
 input UserInput {
-  email: String
-  password: String
+  email: String!
+  password: String!
 }
 
 type User {
-  email: String
+  email: String!
 }
