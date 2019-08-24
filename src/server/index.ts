@@ -17,17 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 apolloServer.applyMiddleware({ app });
 
-const link = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
-
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
-
 // user
 app.get("/api/", (req, res) => {
   res.end("hallo world");
@@ -52,14 +41,6 @@ passport.deserializeUser(function(id, cb) {
 passport.serializeUser(function(user, cb) {
   cb(null, (user as any).id);
 });
-
-app.get(
-  "/authenticate",
-  passport.authenticate("local", { failureRedirect: "/authenticate" }),
-  (req, res) => {
-    res.redirect("/good");
-  }
-);
 
 app.post(
   "/authenticate",
