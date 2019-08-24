@@ -1,10 +1,9 @@
 import { importSchema } from "graphql-import";
-import { gql } from "apollo-boost";
+import { gql, Resolvers } from "apollo-boost";
 import { HyperformsContext } from "./hyperformsContext";
 import { Request } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { config } from "dotenv";
-import { IResolvers } from "./graphql-types";
 import { AuthenticationError } from "apollo-server";
 
 config();
@@ -18,10 +17,6 @@ export function getContext({ req }: { req: Request }) {
   };
   return context;
 }
-
-type Resolvers = IResolvers<HyperformsContext> & {
-  [key: string]: any;
-};
 
 const resolvers: Resolvers = {
   Query: {
