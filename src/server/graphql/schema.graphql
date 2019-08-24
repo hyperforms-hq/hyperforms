@@ -1,12 +1,26 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
   documents: [Document!]!
 }
 
+type Mutation {
+  createUser(user: UserInput): User
+}
+
 type Document {
   description: String
   createdOn: String!
+}
+
+input UserInput {
+  email: String
+  password: String
+}
+
+type User {
+  email: String
 }

@@ -113,6 +113,9 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Document: ResolverTypeWrapper<Document>;
   String: ResolverTypeWrapper<Scalars["String"]>;
+  Mutation: ResolverTypeWrapper<{}>;
+  UserInput: UserInput;
+  User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 };
 
@@ -121,6 +124,9 @@ export type ResolversParentTypes = {
   Query: {};
   Document: Document;
   String: Scalars["String"];
+  Mutation: {};
+  UserInput: UserInput;
+  User: User;
   Boolean: Scalars["Boolean"];
 };
 
@@ -136,6 +142,18 @@ export type DocumentResolvers<
   createdOn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
+> = {
+  createUser?: Resolver<
+    Maybe<ResolversTypes["User"]>,
+    ParentType,
+    ContextType,
+    MutationCreateUserArgs
+  >;
+};
+
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
@@ -147,9 +165,18 @@ export type QueryResolvers<
   >;
 };
 
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
+> = {
+  email?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   Document?: DocumentResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };
 
 /**
@@ -172,9 +199,28 @@ export type Document = {
   createdOn: Scalars["String"];
 };
 
+export type Mutation = {
+  __typename?: "Mutation";
+  createUser?: Maybe<User>;
+};
+
+export type MutationCreateUserArgs = {
+  user?: Maybe<UserInput>;
+};
+
 export type Query = {
   __typename?: "Query";
   documents: Array<Document>;
+};
+
+export type User = {
+  __typename?: "User";
+  email?: Maybe<Scalars["String"]>;
+};
+
+export type UserInput = {
+  email?: Maybe<Scalars["String"]>;
+  password?: Maybe<Scalars["String"]>;
 };
 export type DocumentXQueryVariables = {};
 
