@@ -28,6 +28,10 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "prettier:verify": "prettier --check './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
+    "prettier:fix": "prettier --write './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
+    "tsc:verify": "tsc --noEmit",
+    "verify": "npm run prettier:verify & npm rum tsc:verify",
     "start": "node build/server/index.js",
     "start:dev": "react-scripts start",
     "start:dev:server": "nodemon --exec 'ts-node' --project ./src/server/tsconfig.json ./src/server/index.ts",
