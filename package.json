@@ -34,14 +34,14 @@
     "start:dev:all": "concurrently --kill-others \"npm run start:dev\" \"npm run start:dev:server\"",
     "build": "react-scripts build",
     "build:server": "tsc --project ./src/server/tsconfig.json",
-    "test": "react-scripts test",
     "generate": "graphql-codegen --config codegen.yml",
     "eject": "react-scripts eject",
     "db:dump": "cross-env COMMAND=dump_db ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
     "db:restore": "cross-env COMMAND=restore_db ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
     "db:drop": "cross-env COMMAND=drop_dev_dbs ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
     "db:install": "cross-env COMMAND=create_dev_dbs ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
-    "db:reinstall": "npm run db:drop && npm run db:install"
+    "db:reinstall": "npm run db:drop && npm run db:install",
+    "test": "jest --config=jest.unit.config.js --detectOpenHandles"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -83,6 +83,7 @@
     "nodemon": "^1.19.1",
     "prettier": "1.18.2",
     "pretty-quick": "^1.11.1",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0"
   },
   "proxy": "http://localhost:5000/",
