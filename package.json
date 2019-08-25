@@ -33,10 +33,8 @@
     "mysql": "^2.14.1"
   },
   "scripts": {
-    "prettier:verify": "prettier --check './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
-    "prettier:fix": "prettier --write './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
-    "tsc:verify": "tsc --noEmit",
-    "verify": "npm run prettier:verify & npm rum tsc:verify",
+    "lint": "prettier --check './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
+    "lint:fix": "prettier --write './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
     "start": "ts-node src/index.ts",
     "start:dev": "react-scripts start",
     "start:dev:server": "nodemon --exec 'ts-node' --project ./src/server/tsconfig.json ./src/server/index.ts",
