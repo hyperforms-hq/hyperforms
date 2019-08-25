@@ -1,5 +1,4 @@
 import { comparePassword, hashPassword } from "../passwords";
-import { hash } from "bcrypt";
 
 describe("passwords", () => {
   describe("hashPassword", () => {

@@ -1,4 +1,10 @@
-import { Connection, getConnectionManager, createConnection } from "typeorm";
+import {
+  Connection,
+  getConnectionManager,
+  createConnection,
+  FindManyOptions
+} from "typeorm";
+import { QueryOptions, Maybe } from "../graphql/graphql-types";
 
 export async function cleanAll(entities: string[], connection: Connection) {
   try {
@@ -24,4 +30,19 @@ async function connect(name: string): Promise<Connection> {
     return getConnectionManager().get(name);
   }
   return createConnection(name);
+}
+
+/**
+ * Return basic TypeORM find options based on basic GraphQL options
+ */
+export function getBasicFindOptions<T>(
+  options?: Maybe<QueryOptions>
+): FindManyOptions<T> {
+  if (!options) {
+    return {};
+  }
+  return {
+    skip: options.offset || undefined,
+    take: options.limit || undefined
+  };
 }

@@ -6,6 +6,8 @@ import { ApolloServer } from "apollo-server-express";
 import { config } from "dotenv";
 import { AuthenticationError } from "apollo-server";
 import { Resolvers } from "./graphql-types";
+import { createUser, getUsers } from "./services/users";
+import { getProductionConnection } from "../database/utils";
 
 config();
 
@@ -21,8 +23,15 @@ export function getContext({ req }: { req: Request }) {
 
 const resolvers: Resolvers = {
   Query: {
-    documents: async () => {
-      throw new AuthenticationError("UNAUTHORIZED");
+    users: async (_parent, args) => {
+      const connection = await getProductionConnection();
+      return getUsers(connection, args.options);
+    }
+  },
+  Mutation: {
+    createUser: async (_parent, args) => {
+      const connection = await getProductionConnection();
+      return createUser(connection, args.user);
     }
   }
 };

@@ -1,5 +1,5 @@
 import { cleanAll, getTestConnection } from "../../../database/utils";
-import { saveUser } from "../users";
+import { createUser } from "../users";
 
 beforeAll(async () => {
   const connection = await getTestConnection();
@@ -12,13 +12,10 @@ describe("users", () => {
       const connection = await getTestConnection();
 
       try {
-        const savedUser = await saveUser(
-          {
-            email: "andrerpena@gmail.com",
-            password: "12345"
-          },
-          connection
-        );
+        const savedUser = await createUser(connection, {
+          email: "andrerpena@gmail.com",
+          password: "12345"
+        });
         expect(savedUser).toMatchObject({
           email: "andrerpena@gmail.com"
         });

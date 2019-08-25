@@ -4,16 +4,16 @@ schema {
 }
 
 type Query {
-  documents: [Document!]!
+  users(options: QueryOptions): [User!]!
+}
+
+input QueryOptions {
+  offset: Int
+  limit: Int
 }
 
 type Mutation {
   createUser(user: UserInput!): User
-}
-
-type Document {
-  description: String
-  createdOn: String!
 }
 
 input UserInput {

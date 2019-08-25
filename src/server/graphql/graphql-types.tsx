@@ -5,7 +5,7 @@ import * as ApolloReactCommon from "@apollo/react-common";
 import * as ApolloReactComponents from "@apollo/react-components";
 import * as ApolloReactHoc from "@apollo/react-hoc";
 export type RequireFields<T, K extends keyof T> = {
-  [X in Exclude<keyof T, K>]?: T[X]
+  [X in Exclude<keyof T, K>]?: T[X];
 } &
   { [P in K]-?: NonNullable<T[P]> };
 export type Maybe<T> = T | null;
@@ -115,35 +115,25 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
-  Document: ResolverTypeWrapper<Document>;
+  QueryOptions: QueryOptions;
+  Int: ResolverTypeWrapper<Scalars["Int"]>;
+  User: ResolverTypeWrapper<User>;
   String: ResolverTypeWrapper<Scalars["String"]>;
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
-  User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
-  Document: Document;
+  QueryOptions: QueryOptions;
+  Int: Scalars["Int"];
+  User: User;
   String: Scalars["String"];
   Mutation: {};
   UserInput: UserInput;
-  User: User;
   Boolean: Scalars["Boolean"];
-};
-
-export type DocumentResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["Document"] = ResolversParentTypes["Document"]
-> = {
-  description?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
-  createdOn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
 export type MutationResolvers<
@@ -162,10 +152,11 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
-  documents?: Resolver<
-    Array<ResolversTypes["Document"]>,
+  users?: Resolver<
+    Array<ResolversTypes["User"]>,
     ParentType,
-    ContextType
+    ContextType,
+    QueryUsersArgs
   >;
 };
 
@@ -177,7 +168,6 @@ export type UserResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
-  Document?: DocumentResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
@@ -197,12 +187,6 @@ export type Scalars = {
   Float: number;
 };
 
-export type Document = {
-  __typename?: "Document";
-  description?: Maybe<Scalars["String"]>;
-  createdOn: Scalars["String"];
-};
-
 export type Mutation = {
   __typename?: "Mutation";
   createUser?: Maybe<User>;
@@ -214,7 +198,16 @@ export type MutationCreateUserArgs = {
 
 export type Query = {
   __typename?: "Query";
-  documents: Array<Document>;
+  users: Array<User>;
+};
+
+export type QueryUsersArgs = {
+  options?: Maybe<QueryOptions>;
+};
+
+export type QueryOptions = {
+  offset?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
 };
 
 export type User = {
@@ -229,13 +222,13 @@ export type UserInput = {
 export type DocumentXQueryVariables = {};
 
 export type DocumentXQuery = { __typename?: "Query" } & {
-  documents: Array<{ __typename?: "Document" } & Pick<Document, "description">>;
+  users: Array<{ __typename?: "User" } & Pick<User, "email">>;
 };
 
 export const DocumentXDocument = gql`
   query DocumentX {
-    documents {
-      description
+    users {
+      email
     }
   }
 `;
