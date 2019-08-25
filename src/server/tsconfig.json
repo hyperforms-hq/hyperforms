@@ -6,7 +6,9 @@
     "moduleResolution": "node",
     "noUnusedLocals": false,
     "outDir": "../../build/server",
-    "jsx": "react"
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["*.ts"]
 }
