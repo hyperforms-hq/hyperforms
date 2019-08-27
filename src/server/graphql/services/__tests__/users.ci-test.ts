@@ -1,5 +1,5 @@
 import { cleanAll, getTestConnection } from "../../../database/utils";
-import { createUser } from "../users";
+import { createUser, getUsers } from "../users";
 import UserDb from "../../../database/entity/User";
 
 beforeAll(async () => {
@@ -31,7 +31,33 @@ describe("users", () => {
           password: "12345"
         });
       } finally {
-        connection.close();
+        await connection.close();
+      }
+    });
+  });
+  describe("getUsers", () => {
+    it("should work", async () => {
+      const connection = await getTestConnection();
+
+      try {
+        const repo = connection.getRepository(UserDb);
+
+        await repo.insert({
+          email: "andrerpena@gmail.com",
+          password: "12345"
+        });
+
+        const result = await getUsers(connection);
+        expect(result).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              email: "andrerpena@gmail.com",
+              password: "12345"
+            })
+          ])
+        );
+      } finally {
+        await connection.close();
       }
     });
   });

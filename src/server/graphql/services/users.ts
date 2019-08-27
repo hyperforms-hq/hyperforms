@@ -16,9 +16,9 @@ export async function createUser(
 }
 
 export async function getUsers(
-  connetion: Connection,
+  connection: Connection,
   options?: Maybe<QueryOptions>
 ): Promise<User[]> {
-  const repo = await connetion.getRepository(UserDb);
+  const repo = await connection.getRepository(UserDb);
   return repo.find({ ...getBasicFindOptions(options) });
 }
