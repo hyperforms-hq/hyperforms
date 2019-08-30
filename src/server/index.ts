@@ -1,57 +1,61 @@
 import bodyParser from "body-parser";
 import express from "express";
 import path from "path";
-import { apolloServer } from "./graphql/apollo-server";
+import { createApolloServer } from "./graphql/apollo-server";
 import passport from "passport";
 import passportLocal from "passport-local";
-import { onError } from "apollo-link-error";
+import { getProductionConnection } from "./database/utils";
 
-const LocalStrategy = passportLocal.Strategy;
+(async function() {
+  const LocalStrategy = passportLocal.Strategy;
 
-const app = express();
-const port = process.env.PORT || 5000;
+  const app = express();
+  const port = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, "..")));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(express.static(path.join(__dirname, "..")));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-apolloServer.applyMiddleware({ app });
+  const apolloServer = await createApolloServer(getProductionConnection);
 
-// user
-app.get("/api/", (req, res) => {
-  res.end("hallo world");
-});
+  apolloServer.applyMiddleware({ app });
 
-passport.use(
-  new LocalStrategy(function(username, password, cb) {
+  // user
+  app.get("/api/", (req, res) => {
+    res.end("hallo world");
+  });
+
+  passport.use(
+    new LocalStrategy(function(username, password, cb) {
+      cb(null, {
+        id: 1,
+        name: "andrerpena"
+      });
+    })
+  );
+
+  passport.deserializeUser(function(id, cb) {
     cb(null, {
       id: 1,
       name: "andrerpena"
     });
-  })
-);
-
-passport.deserializeUser(function(id, cb) {
-  cb(null, {
-    id: 1,
-    name: "andrerpena"
   });
-});
 
-passport.serializeUser(function(user, cb) {
-  cb(null, (user as any).id);
-});
+  passport.serializeUser(function(user, cb) {
+    cb(null, (user as any).id);
+  });
 
-app.post(
-  "/authenticate",
-  passport.authenticate("local", { failureRedirect: "/authenticate" }),
-  (req, res) => {
-    res.redirect("/good");
-  }
-);
+  app.post(
+    "/authenticate",
+    passport.authenticate("local", { failureRedirect: "/authenticate" }),
+    (req, res) => {
+      res.redirect("/good");
+    }
+  );
 
-app.use(passport.initialize());
-app.use(passport.session());
+  app.use(passport.initialize());
+  app.use(passport.session());
 
-// tslint:disable-next-line:no-console
-app.listen(port, () => console.log(`Listening on port ${port}`));
+  // tslint:disable-next-line:no-console
+  app.listen(port, () => console.log(`Listening on port ${port}`));
+})();
