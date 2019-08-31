@@ -5,7 +5,7 @@ import { Request } from "express";
 import { config } from "dotenv";
 import { Connection } from "typeorm";
 import { getResolvers } from "./resolvers";
-import { ApolloServer } from "apollo-server";
+import { ApolloServer } from "apollo-server-express";
 
 config();
 
@@ -24,7 +24,7 @@ export async function createApolloServer(
 ): Promise<ApolloServer> {
   return new ApolloServer({
     typeDefs,
-    resolvers: await getResolvers(getConnection),
+    resolvers: (await getResolvers(getConnection)) as any,
     playground: true,
     introspection: true,
     context: getContext

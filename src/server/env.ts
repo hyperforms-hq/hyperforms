@@ -11,3 +11,10 @@ export function readEnvVariable(name: string, defaultValue?: string) {
     throw new Error(`Cannot read environment variable. Variable name: ${name}`);
   return result;
 }
+
+/**
+ * Returns whether or not the code is running in development mode
+ */
+export function isDevelopment(): boolean {
+  return process.env.NODE_ENV === "development";
+}

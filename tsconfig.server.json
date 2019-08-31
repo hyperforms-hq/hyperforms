@@ -4,11 +4,11 @@
     "esModuleInterop": true,
     "target": "es6",
     "moduleResolution": "node",
-    "outDir": "../../build/server",
+    "outDir": "dist-server",
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "lib": ["dom", "esnext.asynciterable"]
   },
-  "include": ["**/*.ts"]
+  "include": ["src/server"]
 }

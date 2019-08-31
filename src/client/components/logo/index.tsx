@@ -1,15 +1,14 @@
 import * as React from "react";
-import styles from "./index.module.scss";
 
 export const Logo: React.FunctionComponent = () => {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.logoWrapper}>
-        <div className={styles.bar1} />
-        <div className={styles.bar2} />
-        <div className={styles.bar3} />
+    <div className="wrapper">
+      <div className="logoWrapper">
+        <div className="bar1" />
+        <div className="bar2" />
+        <div className="bar3" />
       </div>
-      <div className={styles.textWrapper}>hyperforms</div>
+      <div>hyperforms</div>
     </div>
   );
 };

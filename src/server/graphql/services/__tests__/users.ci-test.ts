@@ -7,58 +7,56 @@ beforeAll(async () => {
   await cleanAll(["users"], connection);
 });
 
+afterAll(async () => {
+  const connection = await getTestConnection();
+  await connection.close();
+});
+
 describe("users", () => {
   describe("saveUser", () => {
     it("should work", async () => {
       const connection = await getTestConnection();
 
-      try {
-        const savedUser = await createUser(connection, {
-          email: "andrerpena@gmail.com",
-          password: "12345"
-        });
-        expect(savedUser).toMatchObject({
+      const savedUser = await createUser(connection, {
+        email: "andrerpena@gmail.com",
+        password: "12345"
+      });
+      expect(savedUser).toMatchObject({
+        email: "andrerpena@gmail.com"
+      });
+      const repo = connection.getRepository(UserDb);
+      const result = await repo.findOne({
+        where: {
           email: "andrerpena@gmail.com"
-        });
-        const repo = connection.getRepository(UserDb);
-        const result = await repo.findOne({
-          where: {
-            email: "andrerpena@gmail.com"
-          }
-        });
-        expect(result).toMatchObject({
-          email: "andrerpena@gmail.com",
-          password: "12345"
-        });
-      } finally {
-        await connection.close();
-      }
+        }
+      });
+      expect(result).toMatchObject({
+        email: "andrerpena@gmail.com",
+        password: "12345"
+      });
     });
   });
   describe("getUsers", () => {
     it("should work", async () => {
       const connection = await getTestConnection();
 
-      try {
-        const repo = connection.getRepository(UserDb);
+      const repo = connection.getRepository(UserDb);
 
-        await repo.insert({
-          email: "andrerpena@gmail.com",
-          password: "12345"
-        });
+      await repo.insert({
+        email: "andrerpena@gmail.com",
+        password: "12345"
+      });
 
-        const result = await getUsers(connection);
-        expect(result).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({
-              email: "andrerpena@gmail.com",
-              password: "12345"
-            })
-          ])
-        );
-      } finally {
-        await connection.close();
-      }
+      const result = await getUsers(connection);
+
+      expect(result).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            email: "andrerpena@gmail.com",
+            password: "12345"
+          })
+        ])
+      );
     });
   });
 });

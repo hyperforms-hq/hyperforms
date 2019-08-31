@@ -5,6 +5,8 @@ import { createApolloServer } from "./graphql/apollo-server";
 import passport from "passport";
 import passportLocal from "passport-local";
 import { getProductionConnection } from "./database/utils";
+import Bundler from "parcel-bundler";
+import { isDevelopment } from "./env";
 
 (async function() {
   const LocalStrategy = passportLocal.Strategy;
@@ -12,7 +14,19 @@ import { getProductionConnection } from "./database/utils";
   const app = express();
   const port = process.env.PORT || 5000;
 
-  app.use(express.static(path.join(__dirname, "..")));
+  if (isDevelopment()) {
+    console.log("development mode");
+    // Serve the client code through the Parcel middleware
+    const entryFiles = path.join(__dirname, "../../public/index.html");
+    console.log(entryFiles);
+    const bundler = new Bundler(entryFiles);
+    app.use(bundler.middleware());
+  } else {
+    console.log("production mode");
+    // Serve the client code through the bundle Parcel files
+    app.use(express.static(path.join(__dirname, "../dist")));
+  }
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -57,5 +71,12 @@ import { getProductionConnection } from "./database/utils";
   app.use(passport.session());
 
   // tslint:disable-next-line:no-console
-  app.listen(port, () => console.log(`Listening on port ${port}`));
+  app.listen(port, () => {
+    console.log(
+      `Hyperforms in running in ${
+        isDevelopment() ? "development" : "production"
+      } mode`
+    );
+    console.log(`Listening on port ${port}`);
+  });
 })();
