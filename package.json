@@ -35,7 +35,7 @@
     "lint": "prettier --check './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
     "lint:fix": "prettier --write './src/**/*.{ts,tsx,css,json,js,md,graphql}'",
     "start": "cross-env NODE_ENV=production node dist-server/index.js",
-    "start:dev": "nodemon --exec 'ts-node' --project ./src/server/tsconfig.json ./src/server/index.ts",
+    "dev": "cross-env NODE_ENV=development nodemon --exec 'ts-node' --project ./tsconfig.server.json ./src/server/index.ts",
     "build": "npm-run-all build:server build:client",
     "build:server": "tsc --project tsconfig.server.json",
     "build:client": "parcel build public/index.html",
