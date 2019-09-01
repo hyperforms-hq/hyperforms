@@ -16,5 +16,10 @@ export function readEnvVariable(name: string, defaultValue?: string) {
  * Returns whether or not the code is running in development mode
  */
 export function isDevelopment(): boolean {
+  if (!process.env.NODE_ENV) {
+    throw new Error(
+      "Could not determine Node environment. NODE_ENV is not set"
+    );
+  }
   return process.env.NODE_ENV === "development";
 }
