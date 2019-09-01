@@ -12,7 +12,17 @@ export const Settings: React.FunctionComponent = () => {
           <div className="white-box column is-one-quarter">
             <SettingsMenu />
           </div>
-          <div className="column"></div>
+          <div className="column">
+            <DocumentXComponent>
+              {({ data }) => {
+                if (!data || !data.users || !data.users.length) {
+                  return null;
+                }
+
+                return <div>{data.users[0].email} </div>;
+              }}
+            </DocumentXComponent>
+          </div>
         </div>
       </div>
     </div>

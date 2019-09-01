@@ -14,6 +14,9 @@ import { isDevelopment } from "./env";
   const app = express();
   const port = process.env.PORT || 3000;
 
+  const apolloServer = await createApolloServer(getProductionConnection);
+  apolloServer.applyMiddleware({ app });
+
   if (isDevelopment()) {
     console.log("development mode");
     // Serve the client code through the Parcel middleware
@@ -29,10 +32,6 @@ import { isDevelopment } from "./env";
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-
-  const apolloServer = await createApolloServer(getProductionConnection);
-
-  apolloServer.applyMiddleware({ app });
 
   // user
   app.get("/api/", (req, res) => {
