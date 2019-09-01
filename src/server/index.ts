@@ -12,7 +12,7 @@ import { isDevelopment } from "./env";
   const LocalStrategy = passportLocal.Strategy;
 
   const app = express();
-  const port = process.env.PORT || 5000;
+  const port = process.env.PORT || 3000;
 
   if (isDevelopment()) {
     console.log("development mode");
@@ -77,6 +77,6 @@ import { isDevelopment } from "./env";
         isDevelopment() ? "development" : "production"
       } mode`
     );
-    console.log(`Listening on port ${port}`);
+    console.log(`Hyperforms is listening at http://localhost:${port}`);
   });
 })();

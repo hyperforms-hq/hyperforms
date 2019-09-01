@@ -6,3 +6,4 @@ temp/
 .cache
 dist
 dist-server
+*.log
