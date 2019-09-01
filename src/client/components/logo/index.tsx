@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import "./index.module.scss";
 export const Logo: React.FunctionComponent = () => {
   return (
     <div className="wrapper">
@@ -8,7 +8,7 @@ export const Logo: React.FunctionComponent = () => {
         <div className="bar2" />
         <div className="bar3" />
       </div>
-      <div>hyperforms</div>
+      <div className="textWrapper">hyperforms</div>
     </div>
   );
 };
