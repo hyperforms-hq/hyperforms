@@ -1,73 +1,52 @@
-import bodyParser from "body-parser";
 import express from "express";
 import path from "path";
 import { createApolloServer } from "./graphql/apollo-server";
-import passport from "passport";
-import passportLocal from "passport-local";
 import { getProductionConnection } from "./database/utils";
 import Bundler from "parcel-bundler";
 import { isDevelopment } from "./env";
+import cookieSession from "cookie-session";
 
 (async function() {
-  const LocalStrategy = passportLocal.Strategy;
-
   const app = express();
   const port = process.env.PORT || 3000;
 
   const apolloServer = await createApolloServer(getProductionConnection);
   apolloServer.applyMiddleware({ app });
 
+  app.use(
+    cookieSession({
+      name: "session",
+      secret: "somerandonstuffs",
+      maxAge: 365 * 24 * 60 * 60 * 1000
+    })
+  );
+
+  app.use((req, res, next) => {
+    console.log(req.headers["Accept"]);
+    // if(req.path.endsWith(".s"))
+    // if((!req.session || !req.session.userId) && req.path !== "/login") {
+    //   res.redirect("/login");
+    // }
+    next();
+  });
+
   if (isDevelopment()) {
     console.log("development mode");
     // Serve the client code through the Parcel middleware
     const entryFiles = path.join(__dirname, "../../public/index.html");
     console.log(entryFiles);
-    const bundler = new Bundler(entryFiles);
+    const bundler = new Bundler(entryFiles, {
+      publicUrl: "/static"
+    });
     app.use(bundler.middleware());
   } else {
     console.log("production mode");
     // Serve the client code through the bundle Parcel files
-    app.use(express.static(path.join(__dirname, "../dist")));
-  }
-
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  // user
-  app.get("/api/", (req, res) => {
-    res.end("hallo world");
-  });
-
-  passport.use(
-    new LocalStrategy(function(username, password, cb) {
-      cb(null, {
-        id: 1,
-        name: "andrerpena"
-      });
-    })
-  );
-
-  passport.deserializeUser(function(id, cb) {
-    cb(null, {
-      id: 1,
-      name: "andrerpena"
+    app.use("/static", express.static(path.join(__dirname, "../dist")));
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../dist/index.html"));
     });
-  });
-
-  passport.serializeUser(function(user, cb) {
-    cb(null, (user as any).id);
-  });
-
-  app.post(
-    "/authenticate",
-    passport.authenticate("local", { failureRedirect: "/authenticate" }),
-    (req, res) => {
-      res.redirect("/good");
-    }
-  );
-
-  app.use(passport.initialize());
-  app.use(passport.session());
+  }
 
   // tslint:disable-next-line:no-console
   app.listen(port, () => {
