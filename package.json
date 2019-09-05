@@ -42,7 +42,6 @@
     "build:server": "tsc --project tsconfig.server.json",
     "build:client": "parcel build public/index.html --public-url ./static/",
     "generate": "graphql-codegen --config codegen.yml",
-    "eject": "react-scripts eject",
     "db:dump": "cross-env COMMAND=dump_db ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
     "db:restore": "cross-env COMMAND=restore_db ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
     "db:drop": "cross-env COMMAND=drop_dev_dbs ts-node --project src/server/tsconfig.json ./tools/db-manager.ts",
