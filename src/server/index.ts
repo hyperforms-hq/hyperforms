@@ -22,12 +22,23 @@ import cookieSession from "cookie-session";
   );
 
   app.use((req, res, next) => {
-    console.log(req.headers["Accept"]);
-    // if(req.path.endsWith(".s"))
-    // if((!req.session || !req.session.userId) && req.path !== "/login") {
-    //   res.redirect("/login");
-    // }
+    if (
+      !req.path.startsWith("/static/") &&
+      req.path !== "/favico.ico" &&
+      req.path !== "/login"
+    ) {
+      if (!req.session || !req.session.userId) {
+        res.redirect("/login");
+      }
+    }
     next();
+  });
+
+  app.post("/login", (req, res) => {
+    (req as any).session = {
+      userId: 1
+    };
+    res.send("fuuuck");
   });
 
   if (isDevelopment()) {

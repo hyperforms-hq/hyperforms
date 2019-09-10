@@ -10,12 +10,12 @@ export const CenteredBox: React.FunctionComponent = props => {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-5-tablet is-4-desktop is-3-widescreen">
-                <form action="" className="box">
+                <div className="box">
                   <div className={styles.logoWrapper}>
                     <Logo />
                   </div>
                   {props.children}
-                </form>
+                </div>
               </div>
             </div>
           </div>
