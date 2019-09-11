@@ -1,18 +1,26 @@
 import * as React from "react";
-import styles from "./index.module.scss";
 import { CenteredBox } from "../../layouts/centered-box";
 import { Link } from "react-router-dom";
 import { Form, Field } from "react-final-form";
-import { HyperInput } from "../../form/hyperInput";
 import { HyperField } from "../../form/hyperField";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 export const Login: React.FunctionComponent = () => {
-  function onSubmit(...args: any) {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  async function onSubmit(...args: any) {
+    console.log("input");
     console.log(args);
+    const result = await axios.post("/login", args[0]);
+    if (result.data.result === "success") {
+      setLoggedIn(true);
+    }
   }
 
   return (
     <CenteredBox>
+      {loggedIn && <Redirect to={"/"} />}
       <Form onSubmit={onSubmit}>
         {({ handleSubmit }) => {
           return (

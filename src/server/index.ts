@@ -35,10 +35,14 @@ import cookieSession from "cookie-session";
   });
 
   app.post("/login", (req, res) => {
-    (req as any).session = {
+    const userSession = {
       userId: 1
     };
-    res.send("fuuuck");
+    (req as any).session = userSession;
+    res.send({
+      result: "success",
+      user: userSession
+    });
   });
 
   if (isDevelopment()) {
