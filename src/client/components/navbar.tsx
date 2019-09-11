@@ -66,6 +66,9 @@ export const NavBar: React.FunctionComponent = () => {
                 <Link to={"/login"} className="button">
                   Log in
                 </Link>
+                <a href={"/logout"} className="button">
+                  Log out
+                </a>
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { getProductionConnection } from "./database/utils";
 import Bundler from "parcel-bundler";
 import { isDevelopment } from "./env";
 import cookieSession from "cookie-session";
+import { setUpAuthenticationRoutes } from "./routes/authentication";
 
 (async function() {
   const app = express();
@@ -34,16 +35,7 @@ import cookieSession from "cookie-session";
     next();
   });
 
-  app.post("/login", (req, res) => {
-    const userSession = {
-      userId: 1
-    };
-    (req as any).session = userSession;
-    res.send({
-      result: "success",
-      user: userSession
-    });
-  });
+  setUpAuthenticationRoutes(app);
 
   if (isDevelopment()) {
     console.log("development mode");
