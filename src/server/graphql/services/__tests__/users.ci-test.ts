@@ -32,7 +32,7 @@ describe("users", () => {
       });
       expect(result).toMatchObject({
         email: "andrerpena@gmail.com",
-        password: "12345"
+        password: expect.any(String)
       });
     });
   });
