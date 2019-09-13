@@ -16,7 +16,7 @@ const dbFile = "db/db.sql";
 console.log("Starting DB Command");
 console.log(`Executing ${selectedCommand}`);
 
-let commands;
+let commands: string;
 switch (selectedCommand) {
   case "create_dev_dbs":
     commands = `
@@ -29,6 +29,7 @@ switch (selectedCommand) {
         echo Setting up the ${dbName} dev db
         psql -f ${dbFile} -U ${userName} -d ${dbTestsName}
     `;
+    runCommands(commands);
     break;
   case "drop_dev_dbs":
     commands = `
@@ -37,12 +38,14 @@ switch (selectedCommand) {
         echo Dropping the ${dbTestsName} dev db
         dropdb --if-exists -U ${userName} ${dbTestsName}
     `;
+    runCommands(commands);
     break;
   case "dump_db":
     commands = `
         echo Dumping ${dbName}
         pg_dump --no-acl --no-owner --schema-only -h localhost -U ${userName} ${dbName} > ${dbFile}
         `;
+    runCommands(commands);
     break;
   case "restore_db":
     commands = `
@@ -50,15 +53,22 @@ switch (selectedCommand) {
         createdb -E UTF8 --lc-collate C --lc-ctype C -U ${userName} -T template0 ${dbName}
         pg_restore -U ${userName} -d ${dbName} ${dbName}.dump
         `;
+    runCommands(commands);
     break;
   default:
     throw new Error(`Invalid command. Command: ${selectedCommand}`);
 }
 
-commands.split("\n").forEach((command: string) => {
-  const processedCommand = command.trim();
-  if (processedCommand) {
-    console.log(colors.green(processedCommand));
-    childProcess.execSync(processedCommand);
-  }
-});
+/**
+ * Splits the given commands in lines and executes them synchronously
+ * @param commands
+ */
+function runCommands(commands: string) {
+  commands.split("\n").forEach((command: string) => {
+    const processedCommand = command.trim();
+    if (processedCommand) {
+      console.log(colors.green(processedCommand));
+      childProcess.execSync(processedCommand);
+    }
+  });
+}
