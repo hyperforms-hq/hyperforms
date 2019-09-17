@@ -10,4 +10,10 @@ export default class UserDb {
 
   @Column()
   password?: string;
+
+  @Column()
+  name?: string;
+
+  @Column()
+  display_name?: string;
 }
