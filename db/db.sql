@@ -151,8 +151,9 @@ CREATE TABLE public.user_groups (
 
 CREATE TABLE public.users (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    email character varying(80) NOT NULL,
-    password character varying(120)
+    display_name character varying NOT NULL,
+    email character varying NOT NULL,
+    password character varying NOT NULL
 );
 
 
@@ -259,13 +260,6 @@ ALTER TABLE ONLY public.workspaces
 --
 
 CREATE UNIQUE INDEX document_collection_name_uindex ON public.collections USING btree (name);
-
-
---
--- Name: users_email_uindex; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX users_email_uindex ON public.users USING btree (email);
 
 
 --
@@ -399,3 +393,4 @@ ALTER TABLE ONLY public.user_groups
 --
 -- PostgreSQL database dump complete
 --
+
