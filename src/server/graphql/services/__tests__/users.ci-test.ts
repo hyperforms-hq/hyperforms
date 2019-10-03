@@ -1,6 +1,6 @@
 import { cleanAll, getTestConnection } from "../../../database/utils";
 import { createUser, getUsers } from "../users";
-import UserDb from "../../../database/entity/User";
+import { UserDb } from "../../../database/entity/User";
 
 beforeAll(async () => {
   const connection = await getTestConnection();
@@ -20,7 +20,6 @@ describe("users", () => {
       const savedUser = await createUser(connection, {
         email: "andrerpena@gmail.com",
         password: "12345",
-        name: "andrerpena",
         displayName: "Andre Pena"
       });
       expect(savedUser).toMatchObject({
@@ -47,7 +46,6 @@ describe("users", () => {
       await repo.insert({
         email: "andrerpena@gmail.com",
         password: "12345",
-        name: "andrerpena",
         display_name: "Andre Pena"
       });
 

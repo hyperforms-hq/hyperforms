@@ -1,8 +1,8 @@
 import { UserInput, User, Maybe, QueryOptions } from "../graphql-types";
-import UserDb from "../../database/entity/User";
-import { Connection, FindManyOptions } from "typeorm";
+import { Connection } from "typeorm";
 import { getBasicFindOptions } from "../../database/utils";
 import { hashPassword } from "../../security/passwords";
+import { UserDb } from "../../database/entity/User";
 
 export async function createUser(
   connection: Connection,
@@ -11,7 +11,6 @@ export async function createUser(
   const user = new UserDb();
   user.email = userInput.email;
   user.display_name = userInput.displayName;
-  user.name = userInput.name;
   if (userInput.password) {
     user.password = await hashPassword(userInput.password);
   }
