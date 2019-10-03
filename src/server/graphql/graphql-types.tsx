@@ -218,6 +218,8 @@ export type User = {
 export type UserInput = {
   email: Scalars["String"];
   password: Scalars["String"];
+  name: Scalars["String"];
+  displayName: Scalars["String"];
 };
 export type DocumentXQueryVariables = {};
 

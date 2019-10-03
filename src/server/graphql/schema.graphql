@@ -20,6 +20,8 @@ input UserInput {
   email: String!
   # This is the real password, not a hash
   password: String!
+  name: String!
+  displayName: String!
 }
 
 type User {

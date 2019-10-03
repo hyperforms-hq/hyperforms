@@ -19,7 +19,9 @@ describe("users", () => {
 
       const savedUser = await createUser(connection, {
         email: "andrerpena@gmail.com",
-        password: "12345"
+        password: "12345",
+        name: "andrerpena",
+        displayName: "Andre Pena"
       });
       expect(savedUser).toMatchObject({
         email: "andrerpena@gmail.com"
@@ -44,7 +46,9 @@ describe("users", () => {
 
       await repo.insert({
         email: "andrerpena@gmail.com",
-        password: "12345"
+        password: "12345",
+        name: "andrerpena",
+        display_name: "Andre Pena"
       });
 
       const result = await getUsers(connection);
