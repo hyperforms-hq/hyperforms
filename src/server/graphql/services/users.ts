@@ -2,6 +2,9 @@ import { QueryOptions, User, UserInput } from "../graphql-types";
 import { Connection } from "typeorm";
 import { hashPassword } from "../../security/passwords";
 import { UserDb } from "../../database/entity/User";
+import { mapDbUserToUser } from "../../mappers/user";
+import { getBasicFindOptions } from "../../database/utils";
+import Maybe from "graphql/tsutils/Maybe";
 
 export async function createUser(
   connection: Connection,
@@ -15,28 +18,15 @@ export async function createUser(
   }
   const repo = await connection.getRepository(UserDb);
   const savedUser = await repo.save(newUser);
-  return {
-    id: savedUser.id,
-    email: savedUser.email
-  };
+  return mapDbUserToUser(savedUser);
 }
 
-export async function getUserByEmail(
+export async function getUsers(
   connection: Connection,
-  email: string
-): Promise<UserDb | undefined> {
-  const repo = await connection.getRepository(UserDb);
-  return repo.findOne({ email });
-}
-
-export async function getAllUsers(connection: Connection) {
-  return getUsers(connection);
-}
-
-async function getUsers(
-  connection: Connection,
-  options?: Partial<QueryOptions & User>
+  options?: Maybe<QueryOptions>
 ): Promise<User[]> {
   const repo = await connection.getRepository(UserDb);
-  return repo.find(options);
+  return (await repo.find({ ...getBasicFindOptions(options) })).map(
+    mapDbUserToUser
+  );
 }

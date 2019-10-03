@@ -1,9 +1,9 @@
-import { cleanAll, getTestConnection } from "../../../database/utils";
-import { createUser, getAllUsers } from "../users";
-import { UserDb } from "../../../database/entity/User";
+import { getTestConnection } from "../../utils";
+import { createUser, getUsers } from "../../../graphql/services/users";
+import { UserDb } from "../../entity/User";
 import { handleAfterAll, handleBeforeAll } from "../../../ci-tests";
 
-beforeAll(handleBeforeAll);
+beforeEach(handleBeforeAll);
 
 afterAll(handleAfterAll);
 
@@ -32,7 +32,7 @@ describe("users", () => {
       });
     });
   });
-  describe("getAllUsers", () => {
+  describe("getUsers", () => {
     it("should work", async () => {
       const connection = await getTestConnection();
 
@@ -44,13 +44,13 @@ describe("users", () => {
         display_name: "Andre Pena"
       });
 
-      const result = await getAllUsers(connection);
+      const result = await getUsers(connection);
 
       expect(result).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
             email: "andrerpena@gmail.com",
-            password: "12345"
+            id: expect.any(String)
           })
         ])
       );
