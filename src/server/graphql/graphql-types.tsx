@@ -164,6 +164,7 @@ export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
 > = {
+  id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
@@ -212,6 +213,7 @@ export type QueryOptions = {
 
 export type User = {
   __typename?: "User";
+  id: Scalars["String"];
   email: Scalars["String"];
 };
 

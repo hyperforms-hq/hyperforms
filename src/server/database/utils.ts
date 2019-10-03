@@ -46,3 +46,5 @@ export function getBasicFindOptions<T>(
     take: options.limit || undefined
   };
 }
+
+export function mergeFindOptions(...params: any[]) {}

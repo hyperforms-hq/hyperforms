@@ -1,6 +1,5 @@
-import { UserInput, User, Maybe, QueryOptions } from "../graphql-types";
+import { QueryOptions, User, UserInput } from "../graphql-types";
 import { Connection } from "typeorm";
-import { getBasicFindOptions } from "../../database/utils";
 import { hashPassword } from "../../security/passwords";
 import { UserDb } from "../../database/entity/User";
 
@@ -8,20 +7,36 @@ export async function createUser(
   connection: Connection,
   userInput: UserInput
 ): Promise<User> {
-  const user = new UserDb();
-  user.email = userInput.email;
-  user.display_name = userInput.displayName;
+  const newUser = new UserDb();
+  newUser.email = userInput.email;
+  newUser.display_name = userInput.displayName;
   if (userInput.password) {
-    user.password = await hashPassword(userInput.password);
+    newUser.password = await hashPassword(userInput.password);
   }
   const repo = await connection.getRepository(UserDb);
-  return await repo.save(user);
+  const savedUser = await repo.save(newUser);
+  return {
+    id: savedUser.id,
+    email: savedUser.email
+  };
 }
 
-export async function getUsers(
+export async function getUserByEmail(
   connection: Connection,
-  options?: Maybe<QueryOptions>
+  email: string
+): Promise<UserDb | undefined> {
+  const repo = await connection.getRepository(UserDb);
+  return repo.findOne({ email });
+}
+
+export async function getAllUsers(connection: Connection) {
+  return getUsers(connection);
+}
+
+async function getUsers(
+  connection: Connection,
+  options?: Partial<QueryOptions & User>
 ): Promise<User[]> {
   const repo = await connection.getRepository(UserDb);
-  return repo.find({ ...getBasicFindOptions(options) });
+  return repo.find(options);
 }

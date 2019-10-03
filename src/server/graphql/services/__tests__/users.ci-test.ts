@@ -1,16 +1,11 @@
 import { cleanAll, getTestConnection } from "../../../database/utils";
-import { createUser, getUsers } from "../users";
+import { createUser, getAllUsers } from "../users";
 import { UserDb } from "../../../database/entity/User";
+import { handleAfterAll, handleBeforeAll } from "../../../ci-tests";
 
-beforeAll(async () => {
-  const connection = await getTestConnection();
-  await cleanAll(["users"], connection);
-});
+beforeAll(handleBeforeAll);
 
-afterAll(async () => {
-  const connection = await getTestConnection();
-  await connection.close();
-});
+afterAll(handleAfterAll);
 
 describe("users", () => {
   describe("saveUser", () => {
@@ -37,7 +32,7 @@ describe("users", () => {
       });
     });
   });
-  describe("getUsers", () => {
+  describe("getAllUsers", () => {
     it("should work", async () => {
       const connection = await getTestConnection();
 
@@ -49,7 +44,7 @@ describe("users", () => {
         display_name: "Andre Pena"
       });
 
-      const result = await getUsers(connection);
+      const result = await getAllUsers(connection);
 
       expect(result).toEqual(
         expect.arrayContaining([

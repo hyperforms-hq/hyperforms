@@ -24,5 +24,6 @@ input UserInput {
 }
 
 type User {
+  id: String!
   email: String!
 }
