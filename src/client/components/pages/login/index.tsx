@@ -14,12 +14,8 @@ export const Login: React.FunctionComponent = () => {
   async function onSubmit(...args: any) {
     try {
       const result = await axios.post<AuthenticationResult>("/login", args[0]);
-      if (result.data.result === "success") {
-        setLoggedIn(true);
-      } else {
-        return { [FORM_ERROR]: "Invalid user name or password" };
-      }
-    } catch (ex) {
+      setLoggedIn(true);
+    } catch {
       return { [FORM_ERROR]: "Invalid user name or password" };
     }
   }

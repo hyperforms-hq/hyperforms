@@ -7,11 +7,10 @@ import { AuthenticationResult } from "../../common/api-types/authentication-resu
 export function setUpAuthenticationRoutes(app: Express) {
   app.post("/login", async (req, res) => {
     const sendError = () => {
-      res.status(403);
+      res.status(401);
       res.end(
         JSON.stringify(
           {
-            result: "error",
             error: "email and password are required"
           } as AuthenticationResult,
           null,
@@ -42,7 +41,6 @@ export function setUpAuthenticationRoutes(app: Express) {
       res.end(
         JSON.stringify(
           {
-            result: "success",
             userId: authenticatedUserId
           } as AuthenticationResult,
           null,
