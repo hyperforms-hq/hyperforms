@@ -7,8 +7,6 @@ import {
   getProductionConnection,
   getTestConnection
 } from "../src/server/database/utils";
-import { createUser } from "../src/server/graphql/services/users";
-import { createConnection } from "typeorm";
 import { seed } from "../src/server/database/seed";
 
 config({ path: __dirname + "/../.env" });

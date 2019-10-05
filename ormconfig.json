@@ -8,7 +8,6 @@
     "password": "hyperforms",
     "database": "hyperforms",
     "synchronize": true,
-    "logging": true,
     "entities": ["src/server/database/entity/**/*.ts"],
     "migrations": ["src/server/database/migration/**/*.ts"],
     "subscribers": ["src/server/database/subscriber/**/*.ts"],

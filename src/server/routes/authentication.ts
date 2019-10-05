@@ -1,17 +1,23 @@
 import { Express } from "express";
 import { getProductionConnection } from "../database/utils";
-import { comparePassword, hashPassword } from "../security/passwords";
-import { UserDb } from "../database/entity/User";
 import { UserSession } from "./types";
 import { authenticateUser } from "../graphql/services/authentication";
+import { AuthenticationResult } from "../../common/api-types/authentication-result";
 
 export function setUpAuthenticationRoutes(app: Express) {
   app.post("/login", async (req, res) => {
     const sendError = () => {
       res.status(403);
-      res.end({
-        error: "email and password are required"
-      });
+      res.end(
+        JSON.stringify(
+          {
+            result: "error",
+            error: "email and password are required"
+          } as AuthenticationResult,
+          null,
+          4
+        )
+      );
     };
 
     const email = req.body.email;
@@ -28,16 +34,22 @@ export function setUpAuthenticationRoutes(app: Express) {
 
     if (!authenticatedUserId) {
       sendError();
+    } else {
+      (req as any).session = {
+        userId: authenticatedUserId
+      } as UserSession;
+
+      res.end(
+        JSON.stringify(
+          {
+            result: "success",
+            userId: authenticatedUserId
+          } as AuthenticationResult,
+          null,
+          4
+        )
+      );
     }
-
-    (req as any).session = {
-      userId: authenticatedUserId
-    } as UserSession;
-
-    res.send({
-      result: "success",
-      userId: authenticatedUserId
-    });
   });
 
   app.get("/logout", (req, res) => {

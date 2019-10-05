@@ -35,6 +35,8 @@ import { setUpAuthenticationRoutes } from "./routes/authentication";
     next();
   });
 
+  app.use(express.json());
+
   setUpAuthenticationRoutes(app);
 
   if (isDevelopment()) {
