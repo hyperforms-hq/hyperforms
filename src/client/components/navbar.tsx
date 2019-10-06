@@ -59,13 +59,7 @@ export const NavBar: React.FunctionComponent = () => {
 
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
-                <Link to={"/signup"} className="button is-primary">
-                  <strong>Sign up</strong>
-                </Link>
-                <Link to={"/login"} className="button">
-                  Log in
-                </Link>
+              <div className="bauttons">
                 <a href={"/logout"} className="button">
                   Log out
                 </a>

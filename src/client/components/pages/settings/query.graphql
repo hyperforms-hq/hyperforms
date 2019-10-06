@@ -1,4 +1,4 @@
-query DocumentX {
+query GetUser {
   users {
     email
   }

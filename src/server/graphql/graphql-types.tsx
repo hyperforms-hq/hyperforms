@@ -5,7 +5,7 @@ import * as ApolloReactCommon from "@apollo/react-common";
 import * as ApolloReactComponents from "@apollo/react-components";
 import * as ApolloReactHoc from "@apollo/react-hoc";
 export type RequireFields<T, K extends keyof T> = {
-  [X in Exclude<keyof T, K>]?: T[X]
+  [X in Exclude<keyof T, K>]?: T[X];
 } &
   { [P in K]-?: NonNullable<T[P]> };
 export type Maybe<T> = T | null;
@@ -222,58 +222,58 @@ export type UserInput = {
   password: Scalars["String"];
   displayName: Scalars["String"];
 };
-export type DocumentXQueryVariables = {};
+export type GetUserQueryVariables = {};
 
-export type DocumentXQuery = { __typename?: "Query" } & {
+export type GetUserQuery = { __typename?: "Query" } & {
   users: Array<{ __typename?: "User" } & Pick<User, "email">>;
 };
 
-export const DocumentXDocument = gql`
-  query DocumentX {
+export const GetUserDocument = gql`
+  query GetUser {
     users {
       email
     }
   }
 `;
-export type DocumentXComponentProps = Omit<
+export type GetUserComponentProps = Omit<
   ApolloReactComponents.QueryComponentOptions<
-    DocumentXQuery,
-    DocumentXQueryVariables
+    GetUserQuery,
+    GetUserQueryVariables
   >,
   "query"
 >;
 
-export const DocumentXComponent = (props: DocumentXComponentProps) => (
-  <ApolloReactComponents.Query<DocumentXQuery, DocumentXQueryVariables>
-    query={DocumentXDocument}
+export const GetUserComponent = (props: GetUserComponentProps) => (
+  <ApolloReactComponents.Query<GetUserQuery, GetUserQueryVariables>
+    query={GetUserDocument}
     {...props}
   />
 );
 
-export type DocumentXProps<TChildProps = {}> = ApolloReactHoc.DataProps<
-  DocumentXQuery,
-  DocumentXQueryVariables
+export type GetUserProps<TChildProps = {}> = ApolloReactHoc.DataProps<
+  GetUserQuery,
+  GetUserQueryVariables
 > &
   TChildProps;
-export function withDocumentX<TProps, TChildProps = {}>(
+export function withGetUser<TProps, TChildProps = {}>(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    DocumentXQuery,
-    DocumentXQueryVariables,
-    DocumentXProps<TChildProps>
+    GetUserQuery,
+    GetUserQueryVariables,
+    GetUserProps<TChildProps>
   >
 ) {
   return ApolloReactHoc.withQuery<
     TProps,
-    DocumentXQuery,
-    DocumentXQueryVariables,
-    DocumentXProps<TChildProps>
-  >(DocumentXDocument, {
-    alias: "withDocumentX",
+    GetUserQuery,
+    GetUserQueryVariables,
+    GetUserProps<TChildProps>
+  >(GetUserDocument, {
+    alias: "withGetUser",
     ...operationOptions
   });
 }
-export type DocumentXQueryResult = ApolloReactCommon.QueryResult<
-  DocumentXQuery,
-  DocumentXQueryVariables
+export type GetUserQueryResult = ApolloReactCommon.QueryResult<
+  GetUserQuery,
+  GetUserQueryVariables
 >;
