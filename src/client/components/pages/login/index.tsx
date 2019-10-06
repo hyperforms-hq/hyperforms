@@ -13,7 +13,7 @@ export const Login: React.FunctionComponent = () => {
 
   async function onSubmit(...args: any) {
     try {
-      await axios.post<AuthenticationResult>("/login", args[0]);
+      const result = await axios.post<AuthenticationResult>("/login", args[0]);
       setLoggedIn(true);
     } catch {
       return { [FORM_ERROR]: "Invalid user name or password" };
