@@ -35,23 +35,11 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: bases; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.bases (
-    id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
-    name character varying(80) NOT NULL,
-    workspace_id uuid NOT NULL
-);
-
-
---
 -- Name: collections; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.collections (
     id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
-    base_id uuid NOT NULL,
     name character varying(80) NOT NULL
 );
 
@@ -168,14 +156,6 @@ CREATE TABLE public.workspaces (
 
 
 --
--- Name: bases bases_pk; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.bases
-    ADD CONSTRAINT bases_pk PRIMARY KEY (id);
-
-
---
 -- Name: collections document_collection_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -260,22 +240,6 @@ ALTER TABLE ONLY public.workspaces
 --
 
 CREATE UNIQUE INDEX document_collection_name_uindex ON public.collections USING btree (name);
-
-
---
--- Name: bases bases_workspaces_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.bases
-    ADD CONSTRAINT bases_workspaces_id_fk FOREIGN KEY (workspace_id) REFERENCES public.workspaces(id);
-
-
---
--- Name: collections document_collection_bases_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.collections
-    ADD CONSTRAINT document_collection_bases_id_fk FOREIGN KEY (base_id) REFERENCES public.bases(id);
 
 
 --
