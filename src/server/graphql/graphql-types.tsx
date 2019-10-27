@@ -119,6 +119,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars["Int"]>;
   User: ResolverTypeWrapper<User>;
   String: ResolverTypeWrapper<Scalars["String"]>;
+  Workspace: ResolverTypeWrapper<Workspace>;
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
@@ -131,6 +132,7 @@ export type ResolversParentTypes = {
   Int: Scalars["Int"];
   User: User;
   String: Scalars["String"];
+  Workspace: Workspace;
   Mutation: {};
   UserInput: UserInput;
   Boolean: Scalars["Boolean"];
@@ -158,6 +160,12 @@ export type QueryResolvers<
     ContextType,
     QueryUsersArgs
   >;
+  workspaces?: Resolver<
+    Array<ResolversTypes["Workspace"]>,
+    ParentType,
+    ContextType,
+    QueryWorkspacesArgs
+  >;
 };
 
 export type UserResolvers<
@@ -168,10 +176,20 @@ export type UserResolvers<
   email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
+export type WorkspaceResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Workspace"] = ResolversParentTypes["Workspace"]
+> = {
+  id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  urlKey?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  displayName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Workspace?: WorkspaceResolvers<ContextType>;
 };
 
 /**
@@ -200,9 +218,14 @@ export type MutationCreateUserArgs = {
 export type Query = {
   __typename?: "Query";
   users: Array<User>;
+  workspaces: Array<Workspace>;
 };
 
 export type QueryUsersArgs = {
+  options?: Maybe<QueryOptions>;
+};
+
+export type QueryWorkspacesArgs = {
   options?: Maybe<QueryOptions>;
 };
 
@@ -220,6 +243,13 @@ export type User = {
 export type UserInput = {
   email: Scalars["String"];
   password: Scalars["String"];
+  displayName: Scalars["String"];
+};
+
+export type Workspace = {
+  __typename?: "Workspace";
+  id: Scalars["String"];
+  urlKey: Scalars["String"];
   displayName: Scalars["String"];
 };
 export type GetUserQueryVariables = {};

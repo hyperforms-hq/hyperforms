@@ -5,15 +5,17 @@ schema {
 
 type Query {
   users(options: QueryOptions): [User!]!
+  # This will only return workspaces that are associated with the API user
+  workspaces(options: QueryOptions): [Workspace!]!
+}
+
+type Mutation {
+  createUser(user: UserInput!): User
 }
 
 input QueryOptions {
   offset: Int
   limit: Int
-}
-
-type Mutation {
-  createUser(user: UserInput!): User
 }
 
 input UserInput {
@@ -26,4 +28,10 @@ input UserInput {
 type User {
   id: String!
   email: String!
+}
+
+type Workspace {
+  id: String!
+  urlKey: String!
+  displayName: String!
 }
