@@ -40,7 +40,8 @@ SET default_with_oids = false;
 
 CREATE TABLE public.collections (
     id uuid DEFAULT public.uuid_generate_v1() NOT NULL,
-    name character varying(80) NOT NULL
+    name character varying(80) NOT NULL,
+    workspace_id uuid
 );
 
 
@@ -151,7 +152,8 @@ CREATE TABLE public.users (
 
 CREATE TABLE public.workspaces (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    name character varying(80) NOT NULL
+    display_name character varying(80) NOT NULL,
+    url_key character varying(8)
 );
 
 
@@ -240,6 +242,14 @@ ALTER TABLE ONLY public.workspaces
 --
 
 CREATE UNIQUE INDEX document_collection_name_uindex ON public.collections USING btree (name);
+
+
+--
+-- Name: collections collections_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collections
+    ADD CONSTRAINT collections_fk FOREIGN KEY (workspace_id) REFERENCES public.workspaces(id);
 
 
 --
