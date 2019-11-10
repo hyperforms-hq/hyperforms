@@ -10,6 +10,10 @@ export async function getResolvers(
       users: async (_parent, args) => {
         const connection = await getConnection();
         return getUsers(connection, args.options);
+      },
+      workspaces: async (_parent, args) => {
+        const connection = await getConnection();
+        return;
       }
     },
     Mutation: {
