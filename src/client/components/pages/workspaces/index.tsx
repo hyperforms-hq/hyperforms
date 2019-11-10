@@ -1,28 +1,27 @@
-import * as React from "react";
-import { NavBar } from "../../navbar";
-import { SettingsMenu } from "../../settings-menu";
-import { GetUserComponent } from "../../../../server/graphql/graphql-types";
+import * as React from "react"
+import { NavBar } from "../../navbar"
+import { GetWorkspacesComponent } from "../../../../server/graphql/graphql-types"
 
 export const Workspaces: React.FunctionComponent = () => {
   return (
-    <GetUserComponent>
-      {({ data }) => {
-        if (!data || !data.users || !data.users.length) {
-          return null;
-        }
-        return (
-          <>
-            <NavBar />
-            <div className="container app-container">
-              <div className="columns">
+    <>
+      <NavBar/>
+      <div className="container app-container">
+        <div className="columns">
+          <GetWorkspacesComponent>
+            {({ data }) => {
+              if (!data || !data.workspaces || !data.workspaces.length) {
+                return null
+              }
+              return (
                 <div className="column">
-                  <div>{data.users[0].email} </div>
+                  <div>{data.workspaces[0].displayName} </div>
                 </div>
-              </div>
-            </div>
-          </>
-        );
-      }}
-    </GetUserComponent>
-  );
-};
+              )
+            }}
+          </GetWorkspacesComponent>
+        </div>
+      </div>
+    </>
+  )
+}

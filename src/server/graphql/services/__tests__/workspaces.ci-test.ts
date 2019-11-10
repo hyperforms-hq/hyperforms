@@ -29,7 +29,7 @@ describe("workspaces", () => {
 
     it("should work when there is one workspace", async () => {
       const connection = await getTestConnection();
-      const workspace = await createWorkspace(connection, {
+      await createWorkspace(connection, {
         displayName: "my-workspace"
       });
       const workspaces = await getWorkspaces(connection);
