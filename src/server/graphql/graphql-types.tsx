@@ -5,7 +5,7 @@ import * as ApolloReactCommon from "@apollo/react-common";
 import * as ApolloReactComponents from "@apollo/react-components";
 import * as ApolloReactHoc from "@apollo/react-hoc";
 export type RequireFields<T, K extends keyof T> = {
-  [X in Exclude<keyof T, K>]?: T[X]
+  [X in Exclude<keyof T, K>]?: T[X];
 } &
   { [P in K]-?: NonNullable<T[P]> };
 export type Maybe<T> = T | null;

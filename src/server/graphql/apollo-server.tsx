@@ -1,11 +1,11 @@
 import { importSchema } from "graphql-import";
 import { gql } from "apollo-boost";
-import { HyperformsContext } from "./hyperformsContext";
 import { Request } from "express";
 import { config } from "dotenv";
 import { Connection } from "typeorm";
 import { getResolvers } from "./resolvers";
 import { ApolloServer } from "apollo-server-express";
+import { HyperformsContext } from "./hyperforms-context"
 
 config();
 
