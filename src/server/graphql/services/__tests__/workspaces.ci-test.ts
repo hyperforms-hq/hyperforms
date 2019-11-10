@@ -21,10 +21,22 @@ describe("workspaces", () => {
     });
   });
   describe("getWorkspace", () => {
-    it("should work", async () => {
+    it("should work when there is no workspace", async () => {
       const connection = await getTestConnection();
       const workspaces = await getWorkspaces(connection);
       expect(workspaces).toEqual([]);
+    });
+
+    it("should work when there is one workspace", async () => {
+      const connection = await getTestConnection();
+      const workspace = await createWorkspace(connection, {
+        displayName: "my-workspace"
+      });
+      const workspaces = await getWorkspaces(connection);
+      expect(workspaces).toHaveLength(1);
+      expect(workspaces[0]).toMatchObject({
+        displayName: "my-workspace"
+      });
     });
   });
 });
