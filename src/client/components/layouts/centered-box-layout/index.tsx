@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./index.module.scss";
 import { Logo } from "../../logo";
 
-export const CenteredBox: React.FunctionComponent = props => {
+export const CenteredBoxLayout: React.FunctionComponent = props => {
   return (
     <div>
       <section className="hero is-fullheight">

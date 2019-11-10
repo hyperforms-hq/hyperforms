@@ -1,10 +1,10 @@
 import * as React from "react";
-import { CenteredBox } from "../../layouts/centered-box";
+import { CenteredBoxLayout } from "../../layouts/centered-box-layout";
 import { Link } from "react-router-dom";
 
 export const Signup: React.FunctionComponent = () => {
   return (
-    <CenteredBox>
+    <CenteredBoxLayout>
       <div className="field">
         <label htmlFor="" className="label">
           Email
@@ -59,6 +59,6 @@ export const Signup: React.FunctionComponent = () => {
         </Link>
         <button className="button is-primary">Create account</button>
       </div>
-    </CenteredBox>
+    </CenteredBoxLayout>
   );
 };

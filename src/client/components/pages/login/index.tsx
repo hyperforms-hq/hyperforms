@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CenteredBox } from "../../layouts/centered-box";
+import { CenteredBoxLayout } from "../../layouts/centered-box-layout";
 import { Link } from "react-router-dom";
 import { Form } from "react-final-form";
 import { FORM_ERROR } from "final-form";
@@ -21,7 +21,7 @@ export const Login: React.FunctionComponent = () => {
   }
 
   return (
-    <CenteredBox>
+    <CenteredBoxLayout>
       {loggedIn && <Redirect to={"/"} />}
       <Form onSubmit={onSubmit}>
         {({ handleSubmit, submitError }) => {
@@ -48,6 +48,6 @@ export const Login: React.FunctionComponent = () => {
           );
         }}
       </Form>
-    </CenteredBox>
+    </CenteredBoxLayout>
   );
 };
