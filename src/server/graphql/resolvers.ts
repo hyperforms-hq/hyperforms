@@ -1,6 +1,7 @@
 import { Resolvers } from "./graphql-types";
 import { createUser, getUsers } from "./services/users";
 import { Connection } from "typeorm";
+import { getWorkspaces } from "./services/workspaces";
 
 export async function getResolvers(
   getConnection: () => Promise<Connection>
@@ -13,7 +14,7 @@ export async function getResolvers(
       },
       workspaces: async (_parent, args) => {
         const connection = await getConnection();
-        return;
+        return getWorkspaces(connection, args.options);
       }
     },
     Mutation: {

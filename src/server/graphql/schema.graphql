@@ -35,3 +35,7 @@ type Workspace {
   urlKey: String!
   displayName: String!
 }
+
+type WorkspaceInput {
+  displayName: String!
+}

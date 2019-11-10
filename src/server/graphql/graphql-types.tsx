@@ -123,6 +123,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
+  WorkspaceInput: ResolverTypeWrapper<WorkspaceInput>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -136,6 +137,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   UserInput: UserInput;
   Boolean: Scalars["Boolean"];
+  WorkspaceInput: WorkspaceInput;
 };
 
 export type MutationResolvers<
@@ -185,11 +187,19 @@ export type WorkspaceResolvers<
   displayName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
+export type WorkspaceInputResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["WorkspaceInput"] = ResolversParentTypes["WorkspaceInput"]
+> = {
+  displayName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Workspace?: WorkspaceResolvers<ContextType>;
+  WorkspaceInput?: WorkspaceInputResolvers<ContextType>;
 };
 
 /**
@@ -250,6 +260,11 @@ export type Workspace = {
   __typename?: "Workspace";
   id: Scalars["String"];
   urlKey: Scalars["String"];
+  displayName: Scalars["String"];
+};
+
+export type WorkspaceInput = {
+  __typename?: "WorkspaceInput";
   displayName: Scalars["String"];
 };
 export type GetUserQueryVariables = {};

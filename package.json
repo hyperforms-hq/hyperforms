@@ -106,7 +106,7 @@
   "proxy": "http://localhost:5000/",
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick"
     }
   }
 }
