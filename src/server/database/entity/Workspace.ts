@@ -9,5 +9,5 @@ export class DbWorkspace {
   display_name!: string;
 
   @Column()
-  url_key?: string;
+  url_key!: string;
 }
