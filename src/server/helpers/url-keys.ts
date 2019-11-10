@@ -1,3 +1,5 @@
+import { getRandomItemFromArray } from "./arrays";
+
 function genCharArray(charA: string, charZ: string) {
   let a = [],
     i = charA.charCodeAt(0),
@@ -29,4 +31,9 @@ export function generateUrlKey(length: number = 10) {
     ...genCharArray("A", "Z"),
     ...genCharArray("0", "9")
   ];
+  const result = [];
+  for (let i = 0; i < length; i++) {
+    result.push(getRandomItemFromArray(possibilities));
+  }
+  return result.join("");
 }

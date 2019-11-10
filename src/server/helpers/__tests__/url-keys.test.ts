@@ -1,4 +1,4 @@
-import { generateAllCharactersForUrlKey } from "../url-keys";
+import { generateAllCharactersForUrlKey, generateUrlKey } from "../url-keys";
 
 describe("url-keys", () => {
   describe("generateAllCharactersForUrlKey", () => {
@@ -69,6 +69,12 @@ describe("url-keys", () => {
       ]);
     });
   });
+  describe("generateUrlKey", () => {
+    it("should work", async () => {
+      const x = await generateUrlKey(10);
+      expect(x).toHaveLength(10);
+    });
+  });
 });
 
-export default true;
+export default undefined;
