@@ -1,6 +1,0 @@
-query GetWorkspaces {
-  workspaces {
-    urlKey
-    displayName
-  }
-}

@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 import { Login } from "./pages/login";
-import { Workspaces } from "./pages/workspaces";
+import { ListWorkspacesPage } from "./pages/workspaces/list";
 import { Signup } from "./pages/signup";
 import { onError } from "apollo-link-error";
 import { apolloClient } from "../graphql/apollo-client";
@@ -26,7 +26,7 @@ const AppRouter: React.FC = () => {
         <div>
           <Route exact path={"/signup"} component={Signup} />
           <Route exact path={"/login"} component={Login} />
-          <Route exact path={"/"} component={Workspaces} />
+          <Route exact path={"/"} component={ListWorkspacesPage} />
         </div>
       </ApolloProvider>
     </Router>
