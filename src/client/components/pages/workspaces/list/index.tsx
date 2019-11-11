@@ -4,6 +4,7 @@ import { AppContainerLayout } from "../../../layouts/app-container-layout";
 import { WorkspacesTable } from "../../../tables/workspaces-table";
 import { EmptyBox } from "../../../empty-box";
 import { Button } from "../../../primitives/button";
+import { Link } from "react-router-dom";
 
 export const ListWorkspacesPage: React.FunctionComponent = () => {
   return (
@@ -21,7 +22,9 @@ export const ListWorkspacesPage: React.FunctionComponent = () => {
             );
           }}
         </GetWorkspacesComponent>
-        <Button text={"Add new workspace"} />
+        <Link to={"/workspaces/new"} className={"button"}>
+          Add workspace
+        </Link>
       </div>
     </AppContainerLayout>
   );

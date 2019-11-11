@@ -7,6 +7,7 @@ import { ListWorkspacesPage } from "./pages/workspaces/list";
 import { Signup } from "./pages/signup";
 import { onError } from "apollo-link-error";
 import { apolloClient } from "../graphql/apollo-client";
+import { AddWorkspacePage } from "./pages/workspaces/add";
 
 onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -27,6 +28,7 @@ const AppRouter: React.FC = () => {
           <Route exact path={"/signup"} component={Signup} />
           <Route exact path={"/login"} component={Login} />
           <Route exact path={"/"} component={ListWorkspacesPage} />
+          <Route exact path={"/workspaces/new"} component={AddWorkspacePage} />
         </div>
       </ApolloProvider>
     </Router>
