@@ -5,7 +5,7 @@ import { config } from "dotenv";
 import { Connection } from "typeorm";
 import { getResolvers } from "./resolvers";
 import { ApolloServer } from "apollo-server-express";
-import { HyperformsContext } from "./hyperforms-context"
+import { HyperformsContext } from "./hyperforms-context";
 
 config();
 

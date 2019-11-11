@@ -122,8 +122,8 @@ export type ResolversTypes = {
   Workspace: ResolverTypeWrapper<Workspace>;
   Mutation: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
+  WorkspaceInput: WorkspaceInput;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
-  WorkspaceInput: ResolverTypeWrapper<WorkspaceInput>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -136,8 +136,8 @@ export type ResolversParentTypes = {
   Workspace: Workspace;
   Mutation: {};
   UserInput: UserInput;
-  Boolean: Scalars["Boolean"];
   WorkspaceInput: WorkspaceInput;
+  Boolean: Scalars["Boolean"];
 };
 
 export type MutationResolvers<
@@ -149,6 +149,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationCreateUserArgs, "user">
+  >;
+  createWorkspace?: Resolver<
+    Maybe<ResolversTypes["Workspace"]>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateWorkspaceArgs, "workspace">
   >;
 };
 
@@ -187,19 +193,11 @@ export type WorkspaceResolvers<
   displayName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
-export type WorkspaceInputResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["WorkspaceInput"] = ResolversParentTypes["WorkspaceInput"]
-> = {
-  displayName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Workspace?: WorkspaceResolvers<ContextType>;
-  WorkspaceInput?: WorkspaceInputResolvers<ContextType>;
 };
 
 /**
@@ -219,10 +217,15 @@ export type Scalars = {
 export type Mutation = {
   __typename?: "Mutation";
   createUser?: Maybe<User>;
+  createWorkspace?: Maybe<Workspace>;
 };
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type MutationCreateWorkspaceArgs = {
+  workspace: WorkspaceInput;
 };
 
 export type Query = {
@@ -264,7 +267,6 @@ export type Workspace = {
 };
 
 export type WorkspaceInput = {
-  __typename?: "WorkspaceInput";
   displayName: Scalars["String"];
 };
 export type GetWorkspacesQueryVariables = {};
