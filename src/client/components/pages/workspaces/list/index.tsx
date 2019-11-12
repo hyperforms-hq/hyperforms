@@ -9,22 +9,24 @@ import { Link } from "react-router-dom";
 export const ListWorkspacesPage: React.FunctionComponent = () => {
   return (
     <AppContainerLayout>
-      <div className="columns">
-        <GetWorkspacesComponent>
-          {({ data }) => {
-            if (!data?.workspaces?.length) {
-              return <EmptyBox />;
-            }
-            return (
-              <div className="column">
-                <WorkspacesTable />
-              </div>
-            );
-          }}
-        </GetWorkspacesComponent>
-        <Link to={"/workspaces/new"} className={"button"}>
-          Add workspace
-        </Link>
+      <div className="container">
+        <div className="columns">
+          <GetWorkspacesComponent>
+            {({ data }) => {
+              if (!data?.workspaces?.length) {
+                return <EmptyBox />;
+              }
+              return (
+                <div className="column">
+                  <WorkspacesTable />
+                </div>
+              );
+            }}
+          </GetWorkspacesComponent>
+          <Link to={"/workspaces/new"} className={"button"}>
+            Add workspace
+          </Link>
+        </div>
       </div>
     </AppContainerLayout>
   );
