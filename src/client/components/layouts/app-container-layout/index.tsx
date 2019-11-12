@@ -5,7 +5,7 @@ export const AppContainerLayout: React.FunctionComponent = props => {
   return (
     <div>
       <NavBar />
-      <div className="container app-container">{props.children}</div>
+      <div className="app-container">{props.children}</div>
     </div>
   );
 };
