@@ -1,0 +1,13 @@
+@import "../../../../styles/variables";
+
+.error-box {
+  font-size: $size-7;
+  padding-top: $size-9;
+  color: $red;
+
+  .error-text {
+    padding-left: $size-9;
+  }
+}
+
+

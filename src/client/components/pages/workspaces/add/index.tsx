@@ -4,15 +4,31 @@ import { Form } from "react-final-form";
 import { HyperField } from "../../../form/hyperField";
 import { Button } from "../../../primitives/button";
 import { ButtonBar } from "../../../primitives/button-bar";
+import { useMutation } from "@apollo/react-hooks"
+import {
+  CreateWorkspaceDocument,
+  CreateWorkspaceMutationResult,
+  WorkspaceInput
+} from "../../../../../server/graphql/graphql-types"
+import { FormApi } from "final-form"
 
 export interface AddWorkspacePageProps {}
 
 export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = props => {
-  async function onSubmit(...args: any) {}
+  const [createWorkspace, { data }] = useMutation<CreateWorkspaceMutationResult, WorkspaceInput>(CreateWorkspaceDocument)
+
+  async function onSubmit(values: WorkspaceInput) {
+    // const workspace = await createWorkspace({
+    //   variables: values
+    // });
+    return {
+      "name": "Invalid name"
+    }
+  }
 
   return (
     <NarrowLayout>
-      <Form onSubmit={onSubmit}>
+      <Form<WorkspaceInput> onSubmit={onSubmit}>
         {({ handleSubmit, submitError }) => {
           return (
             <form onSubmit={handleSubmit}>

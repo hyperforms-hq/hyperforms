@@ -1,10 +1,10 @@
 import * as React from "react";
-import { NavBar } from "../../navbar";
+import { Navbar } from "../../primitives/navbar/navbar"
 
 export const AppContainerLayout: React.FunctionComponent = props => {
   return (
     <div>
-      <NavBar />
+      <Navbar />
       <div className="app-container">{props.children}</div>
     </div>
   );

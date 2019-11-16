@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Logo } from "./logo";
+import { Logo } from "../../logo";
 
-export const NavBar: React.FunctionComponent = () => {
+export const Navbar: React.FunctionComponent = () => {
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
