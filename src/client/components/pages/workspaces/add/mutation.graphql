@@ -1,5 +1,5 @@
-mutation CreateWorkspace($name: String!) {
-  createWorkspace(workspace: { displayName: $name }) {
+mutation CreateWorkspace($workspace: WorkspaceInput!) {
+  createWorkspace(workspace: $workspace) {
     displayName
   }
 }

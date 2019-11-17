@@ -10,8 +10,11 @@ export const Button: React.FunctionComponent<ButtonProps> = (
   props: ButtonProps
 ) => {
   return (
-    <button className={`button ${props.className || ""}`}>
-      {props.text} disabled={props.disabled}
+    <button
+      className={`button ${props.className || ""}`}
+      disabled={props.disabled}
+    >
+      {props.text}
     </button>
   );
 };

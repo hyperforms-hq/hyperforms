@@ -1,6 +1,8 @@
 @import "../../../../styles/variables";
 
-.form-error-box {
+.field-error-box {
+  color: $red;
+
   .error-text {
     padding-left: $size-9;
   }
