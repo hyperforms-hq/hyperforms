@@ -23,7 +23,6 @@ export async function getResolvers(
         return createUser(connection, args.user);
       },
       createWorkspace: async (_parent, args) => {
-        throw new Error("haaaaa");
         const connection = await getConnection();
         return createWorkspace(connection, args.workspace);
       }
