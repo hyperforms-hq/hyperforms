@@ -1,9 +1,6 @@
 import * as React from "react";
 import { NarrowLayout } from "../../../layouts/narrow-layout";
-import { Form } from "react-final-form";
 import { HyperField } from "../../../form/hyper-field";
-import { Button } from "../../../primitives/button";
-import { ButtonBar } from "../../../primitives/button-bar";
 import { useMutation } from "@apollo/react-hooks";
 
 import {
@@ -16,6 +13,7 @@ import { FormErrorBox } from "../../../form/form-error-box";
 import { FORM_ERROR } from "final-form";
 import { useState } from "react";
 import { Redirect } from "react-router";
+import { HyperForm } from "../../../form/hyper-form"
 
 export interface AddWorkspacePageProps {}
 
@@ -44,27 +42,13 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
   return (
     <NarrowLayout>
       {shouldRedirect && <Redirect to={"/"} />}
-      <Form<WorkspaceInput> onSubmit={onSubmit}>
-        {props => {
-          return (
-            <form onSubmit={props.handleSubmit}>
-              <HyperField
-                name={"name"}
-                label={"Workspace name"}
-                type={"string"}
-              />
-              <FormErrorBox {...props} />
-              <ButtonBar>
-                <Button
-                  text={"Create workspace"}
-                  className={"is-primary"}
-                  disabled={props.submitting || props.pristine}
-                />
-              </ButtonBar>
-            </form>
-          );
-        }}
-      </Form>
+      <HyperForm handleSubmit={onSubmit} primaryActionText={"Create workspace"}>
+        <HyperField
+          name={"name"}
+          label={"Workspace name"}
+          type={"string"}
+        />
+      </HyperForm>
     </NarrowLayout>
   );
 };
