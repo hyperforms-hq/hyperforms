@@ -1,0 +1,13 @@
+@import "../../../../styles/variables";
+
+.form-error-box {
+
+  .error-text {
+    padding-left: $size-9;
+  }
+
+  ul.error-list {
+    list-style: disc;
+    padding-left: $size-4;
+  }
+}

@@ -16,7 +16,7 @@ export interface InputProps {
 function getComponentFromProps(props: InputProps): React.ReactNode {
   switch (props.type) {
     case "string":
-      return <Field name={props.name} component={HyperInput}  />;
+      return <Field name={props.name} component={HyperInput} />;
     case "password":
       return <Field name={props.name} component={HyperPassword} />;
     case "integer":

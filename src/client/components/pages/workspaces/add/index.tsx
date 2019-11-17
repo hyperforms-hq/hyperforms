@@ -4,39 +4,50 @@ import { Form } from "react-final-form";
 import { HyperField } from "../../../form/hyperField";
 import { Button } from "../../../primitives/button";
 import { ButtonBar } from "../../../primitives/button-bar";
-import { useMutation } from "@apollo/react-hooks"
+import { useMutation } from "@apollo/react-hooks";
+
 import {
   CreateWorkspaceDocument,
   CreateWorkspaceMutationResult,
   WorkspaceInput
-} from "../../../../../server/graphql/graphql-types"
-import { FormApi } from "final-form"
+} from "../../../../../server/graphql/graphql-types";
+import { getReadableErrorsFromGraphQLErrors } from "../../../../graphql/errors"
+import { FormErrorBox } from "../../../form/form-error-box"
 
 export interface AddWorkspacePageProps {}
 
 export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = props => {
-  const [createWorkspace, { data }] = useMutation<CreateWorkspaceMutationResult, WorkspaceInput>(CreateWorkspaceDocument)
+  const [createWorkspace, { data }] = useMutation<
+    CreateWorkspaceMutationResult,
+    WorkspaceInput
+  >(CreateWorkspaceDocument);
 
   async function onSubmit(values: WorkspaceInput) {
-    // const workspace = await createWorkspace({
-    //   variables: values
-    // });
-    return {
-      "name": "Invalid name"
+    try {
+      await createWorkspace({
+        variables: values
+      });
+      return null;
+    } catch(error) {
+      return {
+        FORM_ERROR: getReadableErrorsFromGraphQLErrors(error.graphQLErrors)
+      }
     }
   }
 
   return (
     <NarrowLayout>
       <Form<WorkspaceInput> onSubmit={onSubmit}>
-        {({ handleSubmit, submitError }) => {
+        {(props) => {
           return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={props.handleSubmit}>
+              Form: {props.invalid}
               <HyperField
                 name={"name"}
                 label={"Workspace name"}
                 type={"string"}
               />
+              <FormErrorBox {...props}/>
               <ButtonBar>
                 <Button text={"Create workspace"} className={"is-primary"} />
               </ButtonBar>

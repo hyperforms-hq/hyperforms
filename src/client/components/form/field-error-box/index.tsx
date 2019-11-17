@@ -2,7 +2,7 @@ import * as React from "react";
 import { FieldMetaState } from "react-final-form";
 import "./index.scss";
 
-export const ErrorBox: React.FunctionComponent<FieldMetaState<any>> = props => {
+export const FieldErrorBox: React.FunctionComponent<FieldMetaState<any>> = props => {
   // In case of no error, we just return null
   if (!props.invalid) {
     return null;

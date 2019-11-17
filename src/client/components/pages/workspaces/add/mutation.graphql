@@ -1,5 +1,5 @@
 mutation CreateWorkspace($name: String!) {
-    createWorkspace(workspace: { displayName: $name }) {
-        displayName
-    }
+  createWorkspace(workspace: { displayName: $name }) {
+    displayName
+  }
 }
