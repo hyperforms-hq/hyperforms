@@ -1,8 +1,8 @@
 import * as React from "react";
 import classNames from "classnames";
 import { Field } from "react-final-form";
-import { HyperInput } from "../hyperInput";
-import { HyperPassword } from "../hyperPassword";
+import { HyperInput } from "../hyper-input";
+import { HyperPassword } from "../hyper-password";
 
 export type HyperFieldType = "string" | "password" | "integer";
 

@@ -7,7 +7,7 @@ import { ListWorkspacesPage } from "./pages/workspaces/list";
 import { Signup } from "./pages/signup";
 import { onError } from "apollo-link-error";
 import { apolloClient } from "../graphql/apollo-client";
-import { AddWorkspacePage } from "./pages/workspaces/add"
+import { AddWorkspacePage } from "./pages/workspaces/add";
 
 onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)

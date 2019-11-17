@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NarrowLayout } from "../../../layouts/narrow-layout";
 import { Form } from "react-final-form";
-import { HyperField } from "../../../form/hyperField";
+import { HyperField } from "../../../form/hyper-field";
 import { Button } from "../../../primitives/button";
 import { ButtonBar } from "../../../primitives/button-bar";
 import { useMutation } from "@apollo/react-hooks";
@@ -55,7 +55,11 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
               />
               <FormErrorBox {...props} />
               <ButtonBar>
-                <Button text={"Create workspace"} className={"is-primary"} disabled={props.submitting || props.pristine}  />
+                <Button
+                  text={"Create workspace"}
+                  className={"is-primary"}
+                  disabled={props.submitting || props.pristine}
+                />
               </ButtonBar>
             </form>
           );

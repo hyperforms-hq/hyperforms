@@ -3,7 +3,7 @@ import { CenteredBoxLayout } from "../../layouts/centered-box-layout";
 import { Link } from "react-router-dom";
 import { Form } from "react-final-form";
 import { FORM_ERROR } from "final-form";
-import { HyperField } from "../../form/hyperField";
+import { HyperField } from "../../form/hyper-field";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { AuthenticationResult } from "../../../../common/api-types/authentication-result";
