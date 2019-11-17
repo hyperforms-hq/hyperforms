@@ -11,8 +11,9 @@ import {
   CreateWorkspaceMutationResult,
   WorkspaceInput
 } from "../../../../../server/graphql/graphql-types";
-import { getReadableErrorsFromGraphQLErrors } from "../../../../graphql/errors"
-import { FormErrorBox } from "../../../form/form-error-box"
+import { getReadableErrorsFromGraphQLErrors } from "../../../../graphql/errors";
+import { FormErrorBox } from "../../../form/form-error-box";
+import { FORM_ERROR } from "final-form"
 
 export interface AddWorkspacePageProps {}
 
@@ -28,26 +29,25 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
         variables: values
       });
       return null;
-    } catch(error) {
+    } catch (error) {
       return {
-        FORM_ERROR: getReadableErrorsFromGraphQLErrors(error.graphQLErrors)
-      }
+        [FORM_ERROR]: getReadableErrorsFromGraphQLErrors(error.graphQLErrors)
+      };
     }
   }
 
   return (
     <NarrowLayout>
       <Form<WorkspaceInput> onSubmit={onSubmit}>
-        {(props) => {
+        {props => {
           return (
             <form onSubmit={props.handleSubmit}>
-              Form: {props.invalid}
               <HyperField
                 name={"name"}
                 label={"Workspace name"}
                 type={"string"}
               />
-              <FormErrorBox {...props}/>
+              <FormErrorBox {...props} />
               <ButtonBar>
                 <Button text={"Create workspace"} className={"is-primary"} />
               </ButtonBar>

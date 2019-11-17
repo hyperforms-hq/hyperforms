@@ -1,7 +1,7 @@
 import * as React from "react";
-import { FieldMetaState, FormRenderProps } from "react-final-form"
+import { FieldMetaState, FormRenderProps } from "react-final-form";
 import "./index.scss";
-import { FORM_ERROR } from "final-form"
+import { FORM_ERROR } from "final-form";
 
 export function FormErrorBox<FormValues>(props: FormRenderProps<FormValues>) {
   // In case of no error, we just return null
@@ -9,9 +9,12 @@ export function FormErrorBox<FormValues>(props: FormRenderProps<FormValues>) {
     return null;
   }
   return (
-    <div className="error-box">
+    <div className="form-error-box">
       <i className="fas fa-exclamation-circle" />
-      <span className="error-text"> Form submission error: {props.submitErrors[FORM_ERROR]}</span>
+      <span className="error-text">
+        {" "}
+        Error submitting form: {props.submitErrors[FORM_ERROR]}
+      </span>
     </div>
   );
 }
