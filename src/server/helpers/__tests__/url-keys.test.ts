@@ -3,7 +3,7 @@ import { generateAllCharactersForUrlKey, generateUrlKey } from "../url-keys";
 describe("url-keys", () => {
   describe("generateAllCharactersForUrlKey", () => {
     it("should work", () => {
-      expect(generateAllCharactersForUrlKey()).toBe([
+      expect(generateAllCharactersForUrlKey()).toEqual([
         "a",
         "b",
         "c",
