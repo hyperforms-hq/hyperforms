@@ -9,7 +9,7 @@ import {
   WorkspaceInput
 } from "../../../../../server/graphql/graphql-types";
 import { getReadableErrorsFromGraphQLErrors } from "../../../../graphql/errors";
-import { AnyObject, FORM_ERROR, ValidationErrors } from "final-form"
+import { AnyObject, FORM_ERROR, ValidationErrors } from "final-form";
 import { useState } from "react";
 import { Redirect } from "react-router";
 import { HyperForm } from "../../../form/hyper-form";
@@ -40,13 +40,13 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
   }
 
   function validate(values?: Partial<WorkspaceInput>): ValidationErrors {
-    const errors: AnyObject = {}
-    if(!values) {
+    const errors: AnyObject = {};
+    if (!values) {
       // If the form is not initialized, values will be null
-      return errors
+      return errors;
     }
-    if(!values.displayName) {
-      errors.displayName = "Required"
+    if (!values.displayName) {
+      errors.displayName = "Required";
     }
     return errors;
   }
@@ -54,8 +54,16 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
   return (
     <NarrowLayout>
       {shouldRedirect && <Redirect to={"/"} />}
-      <HyperForm<WorkspaceInput> validate={validate} handleSubmit={onSubmit} primaryActionText={"Create workspace"}>
-        <HyperField name={"displayName"} label={"Workspace name"} type={"string"} />
+      <HyperForm<WorkspaceInput>
+        validate={validate}
+        handleSubmit={onSubmit}
+        primaryActionText={"Create workspace"}
+      >
+        <HyperField
+          name={"displayName"}
+          label={"Workspace name"}
+          type={"string"}
+        />
       </HyperForm>
     </NarrowLayout>
   );

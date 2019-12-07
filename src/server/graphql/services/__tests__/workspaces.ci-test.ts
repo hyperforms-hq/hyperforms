@@ -1,8 +1,8 @@
-import { handleAfterAll, handleBeforeAll } from "../../../ci-tests";
+import { handleAfterAll, handleBeforeEach } from "../../../ci-tests";
 import { createWorkspace, getWorkspaces } from "../workspaces";
 import { getTestConnection } from "../../../database/utils";
 
-beforeAll(handleBeforeAll);
+beforeEach(handleBeforeEach);
 
 afterAll(handleAfterAll);
 

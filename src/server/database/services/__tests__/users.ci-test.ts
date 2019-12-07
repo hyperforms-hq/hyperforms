@@ -1,9 +1,9 @@
 import { getTestConnection } from "../../utils";
 import { createUser, getUsers } from "../../../graphql/services/users";
 import { UserDb } from "../../entity/User";
-import { handleAfterAll, handleBeforeAll } from "../../../ci-tests";
+import { handleAfterAll, handleBeforeEach } from "../../../ci-tests";
 
-beforeEach(handleBeforeAll);
+beforeEach(handleBeforeEach);
 
 afterAll(handleAfterAll);
 

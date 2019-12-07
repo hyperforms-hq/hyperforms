@@ -3,11 +3,13 @@ import { FormErrorBox } from "../form-error-box";
 import { ButtonBar } from "../../primitives/button-bar";
 import { Button } from "../../primitives/button";
 import { Form } from "react-final-form";
-import { ValidationErrors } from "final-form"
+import { ValidationErrors } from "final-form";
 
 export interface HyperFormProps<FormValues> {
   handleSubmit: (values: FormValues) => any;
-  validate?: (values: FormValues) => ValidationErrors | Promise<ValidationErrors> | undefined
+  validate?: (
+    values: FormValues
+  ) => ValidationErrors | Promise<ValidationErrors> | undefined;
   primaryActionText: string;
 }
 
