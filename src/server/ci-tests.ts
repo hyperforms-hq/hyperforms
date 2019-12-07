@@ -1,10 +1,16 @@
 import { cleanAll, getTestConnection } from "./database/utils";
 
-export const handleBeforeAll = async () => {
+/**
+ * Cleans up the test database
+ */
+export const handleBeforeEach = async () => {
   const connection = await getTestConnection();
   await cleanAll(["users", "workspaces"], connection);
 };
 
+/**
+ * Closes the connection
+ */
 export const handleAfterAll = async () => {
   const connection = await getTestConnection();
   await connection.close();

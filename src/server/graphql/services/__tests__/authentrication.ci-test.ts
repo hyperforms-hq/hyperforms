@@ -1,9 +1,9 @@
 import { getTestConnection } from "../../../database/utils";
-import { handleAfterAll, handleBeforeAll } from "../../../ci-tests";
+import { handleAfterAll, handleBeforeEach } from "../../../ci-tests";
 import { authenticateUser } from "../authentication";
 import { createUser } from "../users";
 
-beforeAll(handleBeforeAll);
+beforeAll(handleBeforeEach);
 
 afterAll(handleAfterAll);
 
