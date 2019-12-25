@@ -1,7 +1,12 @@
 import * as React from "react";
 import * as ReactTable from "react-table";
+import { Workspace } from "../../../../server/graphql/graphql-types";
 
-export const WorkspacesTable: React.FunctionComponent = () => {
+export interface WorkspacesTableProps {
+  data: Workspace[]
+}
+
+export const WorkspacesTable: React.FunctionComponent<WorkspacesTableProps> = (props) => {
   const columns = React.useMemo(
     () =>
       [
@@ -19,10 +24,10 @@ export const WorkspacesTable: React.FunctionComponent = () => {
     rows,
     prepareRow,
     getTableBodyProps
-  } = ReactTable.useTable({ columns, data: [] });
+  } = ReactTable.useTable({ columns, data: props.data });
 
   return (
-    <table {...getTableProps()}>
+    <table {...getTableProps()} className="table is-bordered is-fullwidth">
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>

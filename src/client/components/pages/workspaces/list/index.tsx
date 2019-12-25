@@ -1,33 +1,33 @@
 import * as React from "react";
-import { GetWorkspacesComponent } from "../../../../../server/graphql/graphql-types";
+import { GetWorkspacesComponent, GetWorkspacesDocument } from "../../../../../server/graphql/graphql-types";
 import { AppContainerLayout } from "../../../layouts/app-container-layout";
 import { WorkspacesTable } from "../../../tables/workspaces-table";
 import { EmptyBox } from "../../../empty-box";
-import { Button } from "../../../primitives/button";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { NarrowLayout } from "../../../layouts/narrow-layout";
 
 export const ListWorkspacesPage: React.FunctionComponent = () => {
+  const { loading, error, data } = useQuery(GetWorkspacesDocument);
+
   return (
-    <AppContainerLayout>
+    <NarrowLayout>
+      <h3 className="title is-3">Workspaces</h3>
       <div className="container">
         <div className="columns">
-          <GetWorkspacesComponent>
-            {({ data }) => {
-              if (!data?.workspaces?.length) {
-                return <EmptyBox />;
-              }
-              return (
-                <div className="column">
-                  <WorkspacesTable />
-                </div>
-              );
-            }}
-          </GetWorkspacesComponent>
-          <Link to={"/workspaces/new"} className={"button"}>
-            Add workspace
-          </Link>
+          <div className="column">
+            {data?.workspaces?.length
+              ? <WorkspacesTable data={data.workspaces}/>
+              : <EmptyBox/>
+            }
+            <div className="buttons is-right">
+              <Link to={"/workspaces/new"} className={"button is-primary"}>
+                Add workspace
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </AppContainerLayout>
+    </NarrowLayout>
   );
 };

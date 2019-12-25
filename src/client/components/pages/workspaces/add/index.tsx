@@ -13,6 +13,7 @@ import { AnyObject, FORM_ERROR, ValidationErrors } from "final-form";
 import { useState } from "react";
 import { Redirect } from "react-router";
 import { HyperForm } from "../../../form/hyper-form";
+import { PageTitle } from "../../../typography/page-title";
 
 export interface AddWorkspacePageProps {}
 
@@ -54,6 +55,7 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
   return (
     <NarrowLayout>
       {shouldRedirect && <Redirect to={"/"} />}
+      <PageTitle title={"Create workspace"}/>
       <HyperForm<WorkspaceInput>
         validate={validate}
         handleSubmit={onSubmit}
