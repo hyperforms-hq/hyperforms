@@ -1,10 +1,7 @@
 import * as React from "react";
 
-export interface ViewWorkspacePageProps {
-}
+export interface ViewWorkspacePageProps {}
 
 export const ViewWorkspacePage: React.FunctionComponent<ViewWorkspacePageProps> = props => {
-    return <div>
-        Bla
-    </div>;
+  return <div>Bla</div>;
 };

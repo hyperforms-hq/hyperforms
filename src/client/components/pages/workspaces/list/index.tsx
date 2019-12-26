@@ -1,13 +1,13 @@
 import * as React from "react";
 import {
-  GetWorkspacesComponent,
   GetWorkspacesDocument
 } from "../../../../../server/graphql/graphql-types";
-import { WorkspacesTable } from "../../../tables/workspaces-table";
 import { EmptyBox } from "../../../empty-box";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { NarrowLayout } from "../../../layouts/narrow-layout";
+import { HyperTable } from "../../../tables/hypertable";
+import { workspaceTable } from "../../../tables/workspace-table";
 
 export const ListWorkspacesPage: React.FunctionComponent = () => {
   const { loading, error, data } = useQuery(GetWorkspacesDocument);
@@ -19,7 +19,7 @@ export const ListWorkspacesPage: React.FunctionComponent = () => {
         <div className="columns">
           <div className="column">
             {data?.workspaces?.length ? (
-              <WorkspacesTable data={data.workspaces} />
+              <HyperTable columns={workspaceTable} data={data.workspaces} />
             ) : (
               <EmptyBox />
             )}
