@@ -1,13 +1,11 @@
 import * as React from "react";
-import {
-  GetWorkspacesDocument
-} from "../../../../../server/graphql/graphql-types";
+import { GetWorkspacesDocument } from "../../../../../server/graphql/graphql-types";
 import { EmptyBox } from "../../../empty-box";
 import { Link } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
 import { NarrowLayout } from "../../../layouts/narrow-layout";
 import { HyperTable } from "../../../tables/hypertable";
 import { workspaceTable } from "../../../tables/workspace-table";
+import { useQuery } from "@apollo/react-hooks";
 
 export const ListWorkspacesPage: React.FunctionComponent = () => {
   const { loading, error, data } = useQuery(GetWorkspacesDocument);
