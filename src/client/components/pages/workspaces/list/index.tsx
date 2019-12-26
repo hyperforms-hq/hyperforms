@@ -1,6 +1,8 @@
 import * as React from "react";
-import { GetWorkspacesComponent, GetWorkspacesDocument } from "../../../../../server/graphql/graphql-types";
-import { AppContainerLayout } from "../../../layouts/app-container-layout";
+import {
+  GetWorkspacesComponent,
+  GetWorkspacesDocument
+} from "../../../../../server/graphql/graphql-types";
 import { WorkspacesTable } from "../../../tables/workspaces-table";
 import { EmptyBox } from "../../../empty-box";
 import { Link } from "react-router-dom";
@@ -16,10 +18,11 @@ export const ListWorkspacesPage: React.FunctionComponent = () => {
       <div className="container">
         <div className="columns">
           <div className="column">
-            {data?.workspaces?.length
-              ? <WorkspacesTable data={data.workspaces}/>
-              : <EmptyBox/>
-            }
+            {data?.workspaces?.length ? (
+              <WorkspacesTable data={data.workspaces} />
+            ) : (
+              <EmptyBox />
+            )}
             <div className="buttons is-right">
               <Link to={"/workspaces/new"} className={"button is-primary"}>
                 Add workspace

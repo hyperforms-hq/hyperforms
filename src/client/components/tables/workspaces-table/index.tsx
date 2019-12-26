@@ -1,22 +1,24 @@
 import * as React from "react";
 import * as ReactTable from "react-table";
 import { Workspace } from "../../../../server/graphql/graphql-types";
+import { Link } from "react-router-dom";
+import { pathForWorkspace } from "../../../../common/url-for";
 
 export interface WorkspacesTableProps {
-  data: Workspace[]
+  data: Workspace[];
 }
 
-export const WorkspacesTable: React.FunctionComponent<WorkspacesTableProps> = (props) => {
-  const columns = React.useMemo(
-    () =>
-      [
-        {
-          Header: "Display Name",
-          accessor: "displayName"
-        }
-      ] as Array<ReactTable.Column>,
-    []
-  );
+export const WorkspacesTable: React.FunctionComponent<WorkspacesTableProps> = props => {
+  const columns: Array<ReactTable.Column<Workspace>> = [
+    {
+      Header: "Display Name",
+      accessor: "displayName",
+      Cell: ({ row }) => {
+        console.log(row);
+        return <Link to={pathForWorkspace(row.original.urlKey)}>{row.values.displayName}</Link>
+      }
+    }
+  ];
 
   const {
     getTableProps,

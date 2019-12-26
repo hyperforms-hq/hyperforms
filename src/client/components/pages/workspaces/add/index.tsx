@@ -55,7 +55,7 @@ export const AddWorkspacePage: React.FunctionComponent<AddWorkspacePageProps> = 
   return (
     <NarrowLayout>
       {shouldRedirect && <Redirect to={"/"} />}
-      <PageTitle title={"Create workspace"}/>
+      <PageTitle title={"Create workspace"} />
       <HyperForm<WorkspaceInput>
         validate={validate}
         handleSubmit={onSubmit}
