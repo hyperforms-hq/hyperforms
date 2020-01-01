@@ -2,5 +2,6 @@
   "verbose": true,
   "ignore": [".cache", "dist", "dist-server", "node_modules"],
   "exec": "node --inspect  -r ./src/server/typescript-hook.js src/server/index.ts",
-  "watch": ["src/server"]
+  "watch": ["src/server"],
+  "ext": "ts, ts, js, jsx, css"
 }
