@@ -26,15 +26,14 @@ const AppRouter: React.FC = () => {
     <ApolloProvider client={apolloClient}>
       <Router>
         <div>
-          <Route exact path={"/signup"} component={Signup}/>
-          <Route exact path={"/login"} component={Login}/>
-          <Route exact path={"/"} component={ListWorkspacesPage}/>
-          <Route exact path={"/workspaces/new"} component={AddWorkspacePage}/>
-          <Route exact path={"/w/:workspace"} component={ViewWorkspacePage}/>
+          <Route exact path={"/signup"} component={Signup} />
+          <Route exact path={"/login"} component={Login} />
+          <Route exact path={"/"} component={ListWorkspacesPage} />
+          <Route exact path={"/workspaces/new"} component={AddWorkspacePage} />
+          <Route exact path={"/w/:workspace"} component={ViewWorkspacePage} />
         </div>
       </Router>
     </ApolloProvider>
-
   );
 };
 
